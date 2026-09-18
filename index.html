@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Weather Lookup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="weather-card">
+        <h2>🌤️ Weather Lookup</h2>
+        
+        <div class="search-box">
+            <input type="text" id="cityInput" placeholder="Enter the name of the area to search...">
+            <button id="searchBtn">Tìm</button>
+        </div>
+
+        <!-- Thông báo đang tải -->
+        <p id="loadingMsg" class="loading hidden">⏳ Searching for weather information...</p>
+
+        <!-- Khung kết quả thời tiết -->
+        <div id="weatherResult" class="hidden">
+            <!-- Tên thành phố (Đã được khôi phục lại ở đây) -->
+            <h3 id="cityName">City Name</h3>
+            
+            <!-- Bảng giờ địa phương -->
+            <div id="localTime" class="local-time">🕒 --:--:-- (--/--/----)</div>
+
+            <div class="temp-box">
+                <span id="temp">--</span><span class="unit">°C</span>
+            </div>
+            <p id="description">Sky and Clouds</p>
+            <div class="details">
+                <p>💧 Humid: <span id="humidity">--</span>%</p>
+                <p>💨 Wind: <span id="wind">--</span> km/h</p>
+            </div>
+        </div>
+
+        <p id="errorMsg" class="error hidden">This city was not found!</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

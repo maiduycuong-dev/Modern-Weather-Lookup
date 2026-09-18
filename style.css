@@ -1,0 +1,125 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.weather-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    width: 320px;
+    text-align: center;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: #0072ff;
+}
+
+button {
+    background-color: #0072ff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: #005bb5;
+}
+
+/* Hiệu ứng chữ Loading nhấp nháy */
+.loading {
+    color: #0072ff;
+    font-weight: bold;
+    margin: 15px 0;
+    font-size: 14px;
+    animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+/* Bảng thời gian được phóng to và làm nổi bật */
+.local-time {
+    font-size: 15px;
+    color: #0056b3;
+    background: #e8f0fe;
+    padding: 10px;
+    border-radius: 10px;
+    display: block;
+    margin: 12px 0;
+    font-weight: bold;
+    border: 1px dashed #b8daff;
+}
+
+.temp-box {
+    font-size: 48px;
+    font-weight: bold;
+    color: #0072ff;
+    margin: 5px 0;
+}
+
+.unit {
+    font-size: 24px;
+    vertical-align: super;
+}
+
+#description {
+    font-size: 18px;
+    color: #666;
+    text-transform: capitalize;
+    margin-bottom: 15px;
+}
+
+.details {
+    background: #f7f9fc;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #444;
+    display: flex;
+    justify-content: space-around;
+}
+
+.hidden {
+    display: none;
+}
+
+.error {
+    color: #ff4757;
+    margin-top: 15px;
+    font-size: 14px;
+}
