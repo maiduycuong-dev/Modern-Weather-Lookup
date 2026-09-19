@@ -199,10 +199,10 @@ function startLocalClock(timezone) {
 
 function getWeatherDescription(code) {
     if (code === 0) return "Clear skies ☀️";
-    if (code >= 1 && code <= 3) return "Cloudy ⛅";
+    if (code >= 1 && code <= 3) return "Cloudy ☁️";
     if (code >= 45 && code <= 48) return "It's foggy 🌫️";
     if (code >= 51 && code <= 67) return "Light rain / showers 🌧️";
-    if (code >= 71 && code <= 77) return "It's snowing ❄️";
+    if (code >= 71 && code <= 77) return "It's snowing 🌨️";
     if (code >= 95) return "Thunderstorms ⛈️";
-    return "Normal weather";
+    return "Normal weather ⛅";
 }
