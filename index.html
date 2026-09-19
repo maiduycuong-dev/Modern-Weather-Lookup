@@ -31,6 +31,12 @@
                 <button class="font-btn" data-font="Inter">Inter</button>
                 <button class="font-btn" data-font="Arial">Arial</button>
             </div>
+
+            <h4 style="margin-top: 15px;">Temperature Unit</h4>
+            <div class="unit-options">
+                <button class="unit-btn active" data-unit="C">°C</button>
+                <button class="unit-btn" data-unit="F">°F</button>
+            </div>
         </div>
         
         <div class="search-box">
@@ -45,7 +51,7 @@
             <div id="localTime" class="local-time">🕒 --:--:-- (--/--/----)</div>
 
             <div class="temp-box">
-                <span id="temp">--</span><span class="unit">°C</span>
+                <span id="temp">--</span><span id="unitSymbol" class="unit">°C</span>
             </div>
             <p id="description">Sky and Clouds</p>
             <div class="details">

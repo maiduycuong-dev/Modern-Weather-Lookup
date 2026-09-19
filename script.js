@@ -8,16 +8,20 @@ const settingsBtn = document.getElementById('settingsBtn');
 const settingsPanel = document.getElementById('settingsPanel');
 const themeBtns = document.querySelectorAll('.theme-btn');
 const fontBtns = document.querySelectorAll('.font-btn');
+const unitBtns = document.querySelectorAll('.unit-btn');
 
 const cityName = document.getElementById('cityName');
 const localTime = document.getElementById('localTime');
 const temp = document.getElementById('temp');
+const unitSymbol = document.getElementById('unitSymbol');
 const description = document.getElementById('description');
 const humidity = document.getElementById('humidity');
 const wind = document.getElementById('wind');
 
 let currentCityTimezone = null;
 let clockInterval = null;
+let currentTempC = null;
+let currentUnit = 'C';
 
 settingsBtn.addEventListener('click', () => {
     settingsPanel.classList.toggle('hidden');
@@ -45,6 +49,20 @@ fontBtns.forEach(btn => {
     });
 });
 
+unitBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        currentUnit = btn.getAttribute('data-unit');
+        localStorage.setItem('selectedUnit', currentUnit);
+
+        unitBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (currentTempC !== null) {
+            updateTemperatureDisplay();
+        }
+    });
+});
+
 window.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('selectedTheme');
     if (savedTheme && savedTheme !== 'blue') {
@@ -53,9 +71,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const savedFont = localStorage.getItem('selectedFont') || 'Segoe UI';
     applyFont(savedFont);
-
     fontBtns.forEach(btn => {
         if (btn.getAttribute('data-font') === savedFont) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
+    const savedUnit = localStorage.getItem('selectedUnit') || 'C';
+    currentUnit = savedUnit;
+    unitBtns.forEach(btn => {
+        if (btn.getAttribute('data-unit') === savedUnit) {
             btn.classList.add('active');
         } else {
             btn.classList.remove('active');
@@ -107,8 +134,9 @@ async function getWeather(city) {
         const weatherCode = weatherData.current.weather_code;
         const weatherText = getWeatherDescription(weatherCode);
 
+        currentTempC = weatherData.current.temperature_2m;
         cityName.innerText = displayName;
-        temp.innerText = Math.round(weatherData.current.temperature_2m);
+        updateTemperatureDisplay();
         description.innerText = weatherText;
         humidity.innerText = weatherData.current.relative_humidity_2m;
         wind.innerText = weatherData.current.wind_speed_10m;
@@ -123,6 +151,17 @@ async function getWeather(city) {
         loadingMsg.classList.add('hidden');
         weatherResult.classList.add('hidden');
         errorMsg.classList.remove('hidden');
+    }
+}
+
+function updateTemperatureDisplay() {
+    if (currentUnit === 'F') {
+        const tempF = (currentTempC * 9/5) + 32;
+        temp.innerText = Math.round(tempF);
+        unitSymbol.innerText = '°F';
+    } else {
+        temp.innerText = Math.round(currentTempC);
+        unitSymbol.innerText = '°C';
     }
 }
 

@@ -26,10 +26,13 @@ body.theme-dark {
 }
 
 .weather-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     padding: 40px;
     border-radius: 24px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     width: 420px;
     text-align: center;
     position: relative;
@@ -43,14 +46,16 @@ body.theme-dark {
 }
 
 h2 {
-    color: #333;
+    color: #111;
     margin: 0;
     font-size: 22px;
 }
 
 #settingsBtn {
-    background: #f1f3f5;
-    border: none;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     font-size: 18px;
     padding: 8px 10px;
     border-radius: 12px;
@@ -59,22 +64,24 @@ h2 {
 }
 
 #settingsBtn:hover {
-    background: #e2e6ea;
+    background: rgba(255, 255, 255, 0.6);
     transform: scale(1.05);
 }
 
 .settings-panel {
-    background: #f8f9fa;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     padding: 16px;
     border-radius: 16px;
     margin-bottom: 20px;
-    border: 1px solid #e9ecef;
+    border: 1px solid rgba(255, 255, 255, 0.4);
     text-align: left;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     opacity: 1;
     transform: translateY(0);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    max-height: 300px;
+    max-height: 350px;
     overflow: hidden;
 }
 
@@ -93,7 +100,7 @@ h2 {
     margin: 0 0 10px 0;
     font-size: 13px;
     font-weight: 600;
-    color: #495057;
+    color: #222;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -118,16 +125,18 @@ h2 {
     transform: scale(1.1);
 }
 
-.font-options {
+.font-options, .unit-options {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
 }
 
-.font-btn {
-    background: #ffffff;
-    border: 1px solid #ced4da;
-    color: #495057;
+.font-btn, .unit-btn {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #222;
     padding: 6px 12px;
     border-radius: 8px;
     font-size: 13px;
@@ -137,13 +146,13 @@ h2 {
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
-.font-btn:hover {
-    background: #e9ecef;
-    border-color: #adb5bd;
+.font-btn:hover, .unit-btn:hover {
+    background: rgba(255, 255, 255, 0.6);
+    border-color: #fff;
     transform: translateY(-1px);
 }
 
-.font-btn.active {
+.font-btn.active, .unit-btn.active {
     background-color: #0072ff;
     color: white;
     border-color: #0072ff;
@@ -159,16 +168,25 @@ h2 {
 input {
     flex: 1;
     padding: 12px 14px;
-    border: 2px solid #ddd;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 12px;
     outline: none;
     font-size: 14px;
     font-family: inherit;
-    transition: border-color 0.2s;
+    transition: all 0.2s;
+    color: #111;
+}
+
+input::placeholder {
+    color: rgba(0, 0, 0, 0.45);
 }
 
 input:focus {
     border-color: #0072ff;
+    background: rgba(255, 255, 255, 0.6);
 }
 
 button {
@@ -192,7 +210,7 @@ button:active {
 }
 
 .loading {
-    color: #0072ff;
+    color: #004085;
     font-weight: bold;
     margin: 15px 0;
     font-size: 14px;
@@ -207,20 +225,22 @@ button:active {
 
 .local-time {
     font-size: 15px;
-    color: #0056b3;
-    background: #e8f0fe;
+    color: #003366;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 12px;
     border-radius: 12px;
     display: block;
     margin: 15px 0;
     font-weight: bold;
-    border: 1px dashed #b8daff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .temp-box {
     font-size: 64px;
     font-weight: bold;
-    color: #0072ff;
+    color: #004085;
     margin: 10px 0;
 }
 
@@ -231,19 +251,22 @@ button:active {
 
 #description {
     font-size: 18px;
-    color: #666;
+    color: #333;
     text-transform: capitalize;
     margin-bottom: 15px;
 }
 
 .details {
-    background: #f7f9fc;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 12px;
     border-radius: 12px;
     font-size: 14px;
-    color: #444;
+    color: #222;
     display: flex;
     justify-content: space-around;
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .hidden {
@@ -251,7 +274,7 @@ button:active {
 }
 
 .error {
-    color: #ff4757;
+    color: #cc0000;
     margin-top: 15px;
     font-size: 14px;
     font-weight: 500;
