@@ -5,17 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Weather Lookup</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
 
     <div class="weather-card">
         <div class="header-container">
-            <h2>🌤️ Modern Weather Lookup</h2>
-            <button id="settingsBtn" title="Theme Settings">⚙️</button>
+            <h2>Modern Weather Lookup</h2>
+            <button id="settingsBtn">⚙️</button>
         </div>
 
-        <div id="settingsPanel" class="settings-panel hidden">
+        <div class="settings-panel hidden" id="settingsPanel">
             <h4>Background Theme</h4>
             <div class="theme-options">
                 <button class="theme-btn" data-theme="blue" style="background: linear-gradient(135deg, #00c6ff, #0072ff);"></button>
@@ -23,7 +22,7 @@
                 <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);"></button>
                 <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);"></button>
             </div>
-            
+
             <h4 style="margin-top: 15px;">Interface Font</h4>
             <div class="font-options">
                 <button class="font-btn active" data-font="Segoe UI">Segoe UI</button>
@@ -38,29 +37,30 @@
                 <button class="unit-btn" data-unit="F">°F</button>
             </div>
         </div>
-        
+
         <div class="search-box">
-            <input type="text" id="cityInput" placeholder="Enter the name of the area to search...">
+            <input type="text" id="cityInput" placeholder="Enter city name...">
             <button id="searchBtn">Search</button>
         </div>
-        <p id="loadingMsg" class="loading hidden">⏳ Searching for weather information...</p>
+
+        <div id="loadingMsg" class="loading hidden">Loading weather data...</div>
+        <div id="errorMsg" class="error hidden">City not found! Please try again.</div>
 
         <div id="weatherResult" class="hidden">
-            <h3 id="cityName">City Name</h3>
-
-            <div id="localTime" class="local-time">🕒 --:--:-- (--/--/----)</div>
-
+            <h2 id="cityName"></h2>
+            <span id="localTime" class="local-time"></span>
+            
             <div class="temp-box">
-                <span id="temp">--</span><span id="unitSymbol" class="unit">°C</span>
+                <span id="temp"></span><span id="unitSymbol" class="unit">°C</span>
             </div>
-            <p id="description">Sky and Clouds</p>
+            
+            <p id="description"></p>
+            
             <div class="details">
-                <p>💧 Humid: <span id="humidity">--</span>%</p>
-                <p>💨 Wind: <span id="wind">--</span> km/h</p>
+                <div>💧 Humid: <span id="humidity"></span>%</div>
+                <div>💨 Wind: <span id="wind"></span> km/h</div>
             </div>
         </div>
-
-        <p id="errorMsg" class="error hidden">This city was not found!</p>
     </div>
 
     <script src="script.js"></script>
