@@ -4,6 +4,10 @@ const weatherResult = document.getElementById('weatherResult');
 const errorMsg = document.getElementById('errorMsg');
 const loadingMsg = document.getElementById('loadingMsg');
 
+const settingsBtn = document.getElementById('settingsBtn');
+const settingsPanel = document.getElementById('settingsPanel');
+const themeBtns = document.querySelectorAll('.theme-btn');
+
 const cityName = document.getElementById('cityName');
 const localTime = document.getElementById('localTime');
 const temp = document.getElementById('temp');
@@ -13,6 +17,28 @@ const wind = document.getElementById('wind');
 
 let currentCityTimezone = null;
 let clockInterval = null;
+
+settingsBtn.addEventListener('click', () => {
+    settingsPanel.classList.toggle('hidden');
+});
+
+themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const theme = btn.getAttribute('data-theme');
+        document.body.className = '';
+        if (theme !== 'blue') {
+            document.body.classList.add(`theme-${theme}`);
+        }
+        localStorage.setItem('selectedTheme', theme);
+    });
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('selectedTheme');
+    if (savedTheme && savedTheme !== 'blue') {
+        document.body.classList.add(`theme-${savedTheme}`);
+    }
+});
 
 searchBtn.addEventListener('click', () => {
     const city = cityInput.value.trim();
@@ -34,11 +60,11 @@ async function getWeather(city) {
         weatherResult.classList.add('hidden');
         errorMsg.classList.add('hidden');
 
-        const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=vi&format=json`);
+        const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`);
         const geoData = await geoResponse.json();
 
         if (!geoData.results || geoData.results.length === 0) {
-            throw new Error('Không tìm thấy thành phố');
+            throw new Error('City not found!');
         }
 
         const location = geoData.results[0];
@@ -87,7 +113,7 @@ function startLocalClock(timezone) {
                 hour12: false
             };
             
-            const formatter = new Intl.DateTimeFormat('vi-VN', options);
+            const formatter = new Intl.DateTimeFormat('en-US', options);
             const parts = formatter.formatToParts(now);
             
             let hour = '', minute = '', second = '', day = '', month = '', year = '';
@@ -100,9 +126,9 @@ function startLocalClock(timezone) {
                 if (part.type === 'year') year = part.value;
             }
 
-            localTime.innerText = `🕒 ${hour}:${minute}:${second} - ${day}/${month}/${year}`;
+            localTime.innerText = `🕒 ${hour}:${minute}:${second} - ${month}/${day}/${year}`;
         } catch (e) {
-            localTime.innerText = "🕒 Không xác định được giờ";
+            localTime.innerText = "🕒 Unable to determine the time!";
         }
     }
 
@@ -111,11 +137,11 @@ function startLocalClock(timezone) {
 }
 
 function getWeatherDescription(code) {
-    if (code === 0) return "Trời quang mây tạnh ☀️";
-    if (code >= 1 && code <= 3) return "Trời có mây ⛅";
-    if (code >= 45 && code <= 48) return "Có sương mù 🌫️";
-    if (code >= 51 && code <= 67) return "Có mưa nhỏ / mưa rào 🌧️";
-    if (code >= 71 && code <= 77) return "Có tuyết rơi ❄️";
-    if (code >= 95) return "Có dông bão ⛈️";
-    return "Thời tiết bình thường";
+    if (code === 0) return "Clear skies ☀️";
+    if (code >= 1 && code <= 3) return "Cloudy ⛅";
+    if (code >= 45 && code <= 48) return "It's foggy 🌫️";
+    if (code >= 51 && code <= 67) return "Light rain / showers 🌧️";
+    if (code >= 71 && code <= 77) return "It's snowing ❄️";
+    if (code >= 95) return "Thunderstorms ⛈️";
+    return "Normal weather";
 }

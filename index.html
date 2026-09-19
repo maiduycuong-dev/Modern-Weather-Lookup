@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,22 +9,30 @@
 <body>
 
     <div class="weather-card">
-        <h2>🌤️ Weather Lookup</h2>
+        <div class="header-container">
+            <h2>🌤️ Weather Lookup</h2>
+            <button id="settingsBtn" title="Theme Settings">⚙️</button>
+        </div>
+
+        <div id="settingsPanel" class="settings-panel hidden">
+            <h4>Background Theme</h4>
+            <div class="theme-options">
+                <button class="theme-btn" data-theme="blue" style="background: linear-gradient(135deg, #00c6ff, #0072ff);"></button>
+                <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);"></button>
+                <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);"></button>
+                <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);"></button>
+            </div>
+        </div>
         
         <div class="search-box">
             <input type="text" id="cityInput" placeholder="Enter the name of the area to search...">
-            <button id="searchBtn">Tìm</button>
+            <button id="searchBtn">Search</button>
         </div>
-
-        <!-- Thông báo đang tải -->
         <p id="loadingMsg" class="loading hidden">⏳ Searching for weather information...</p>
 
-        <!-- Khung kết quả thời tiết -->
         <div id="weatherResult" class="hidden">
-            <!-- Tên thành phố (Đã được khôi phục lại ở đây) -->
             <h3 id="cityName">City Name</h3>
-            
-            <!-- Bảng giờ địa phương -->
+
             <div id="localTime" class="local-time">🕒 --:--:-- (--/--/----)</div>
 
             <div class="temp-box">
