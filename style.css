@@ -1,15 +1,17 @@
 :root {
-    --current-font: 'Segoe UI';
+    --current-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    font-family: var(--current-font), Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--current-font);
     background: linear-gradient(135deg, #00c6ff, #0072ff);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
+    padding: 15px;
+    box-sizing: border-box;
     transition: background 0.5s ease;
 }
 
@@ -25,6 +27,10 @@ body.theme-dark {
     background: linear-gradient(135deg, #232526, #414345);
 }
 
+body.theme-sunshine {
+    background: linear-gradient(135deg, #f7b733, #fc4a1a);
+}
+
 .weather-card {
     background: rgba(255, 255, 255, 0.35);
     backdrop-filter: blur(30px);
@@ -33,10 +39,12 @@ body.theme-dark {
     border-radius: 24px;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.6);
-    width: 420px;
+    width: 100%;
+    max-width: 420px;
     text-align: center;
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .header-container {
@@ -79,8 +87,7 @@ h2 {
     border: 1px solid rgba(255, 255, 255, 0.4);
     text-align: left;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    
-    max-height: 300px;
+    max-height: 350px;
     opacity: 1;
     overflow: hidden;
     transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
@@ -102,8 +109,8 @@ h2 {
 }
 
 .settings-panel h4 {
-    margin: 0 0 10px 0;
-    font-size: 13px;
+    margin: 0 0 8px 0;
+    font-size: 12px;
     font-weight: 600;
     color: #222;
     text-transform: uppercase;
@@ -112,12 +119,12 @@ h2 {
 
 .theme-options {
     display: flex;
-    gap: 10px;
+    gap: 8px;
 }
 
 .theme-btn {
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     border: 2px solid white;
     cursor: pointer;
@@ -132,7 +139,7 @@ h2 {
 
 .font-options, .unit-options {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
 }
 
@@ -142,13 +149,13 @@ h2 {
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.5);
     color: #222;
-    padding: 6px 12px;
+    padding: 5px 10px;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 12px;
     cursor: pointer;
     font-weight: 500;
+    font-family: inherit;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
 .font-btn:hover, .unit-btn:hover {
@@ -228,32 +235,22 @@ button:active {
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .local-time {
-    font-size: 15px;
+    font-size: 14px;
     color: #222324;
     background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    padding: 12px;
+    padding: 10px;
     border-radius: 12px;
     display: block;
     margin: 15px 0;
@@ -303,4 +300,47 @@ button:active {
     font-size: 14px;
     font-weight: 500;
     animation: fadeIn 0.3s ease-in-out forwards;
+}
+@media screen and (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .weather-card {
+        padding: 20px 15px;
+        border-radius: 18px;
+    }
+
+    h2 {
+        font-size: 19px;
+    }
+
+    .temp-box {
+        font-size: 52px;
+    }
+
+    .unit {
+        font-size: 20px;
+    }
+
+    .theme-options {
+        justify-content: space-between;
+    }
+
+    .theme-btn {
+        width: 28px;
+        height: 28px;
+    }
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .weather-card {
+        max-width: 380px;
+        padding: 25px 30px;
+    }
+}
+@media screen and (min-width: 769px) {
+    .weather-card {
+        width: 420px;
+        padding: 40px;
+    }
 }

@@ -4,37 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Weather Lookup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="theme-default">
 
     <div class="weather-card">
         <div class="header-container">
-            <h2>⛅ Modern Weather Lookup</h2>
-            <button id="settingsBtn">⚙️</button>
+            <h2>Check the Weather</h2>
+            <button id="settingsBtn" title="Interface Settings">⚙️</button>
         </div>
 
-        <div class="settings-panel hidden" id="settingsPanel">
-            <h4>Background Theme</h4>
-            <div class="theme-options">
-                <button class="theme-btn" data-theme="blue" style="background: linear-gradient(135deg, #00c6ff, #0072ff);"></button>
-                <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);"></button>
-                <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);"></button>
-                <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);"></button>
+        <div id="settingsPanel" class="settings-panel hidden">
+            <div class="setting-group">
+                <h4>Background Theme</h4>
+                <div class="theme-options">
+                    <button class="theme-btn" data-theme="default" style="background: linear-gradient(135deg, #00c6ff, #0072ff);" title="Blue"></button>
+                    <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);" title="Sunset"></button>
+                    <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);" title="Emerald"></button>
+                    <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);" title="Dark"></button>
+                    <button class="theme-btn" data-theme="sunshine" style="background: linear-gradient(135deg, #f7b733, #fc4a1a);" title="Sunshine"></button>
+                </div>
             </div>
 
-            <h4 style="margin-top: 15px;">Interface Font</h4>
-            <div class="font-options">
-                <button class="font-btn active" data-font="Segoe UI">Segoe UI</button>
-                <button class="font-btn" data-font="Roboto">Roboto</button>
-                <button class="font-btn" data-font="Inter">Inter</button>
-                <button class="font-btn" data-font="Arial">Arial</button>
+            <div class="setting-group" style="margin-top: 12px;">
+                <h4>Font Family</h4>
+                <div class="font-options">
+                    <button class="font-btn active" data-font="segoe">Segoe UI</button>
+                    <button class="font-btn" data-font="inter">Inter</button>
+                    <button class="font-btn" data-font="roboto">Roboto</button>
+                    <button class="font-btn" data-font="helvetica">Helvetica</button>
+                </div>
             </div>
 
-            <h4 style="margin-top: 15px;">Temperature Unit</h4>
-            <div class="unit-options">
-                <button class="unit-btn active" data-unit="C">°C</button>
-                <button class="unit-btn" data-unit="F">°F</button>
+            <div class="setting-group" style="margin-top: 12px;">
+                <h4>Temperature Unit</h4>
+                <div class="unit-options">
+                    <button class="unit-btn active" data-unit="C">°C</button>
+                    <button class="unit-btn" data-unit="F">°F</button>
+                </div>
             </div>
         </div>
 
@@ -43,22 +51,22 @@
             <button id="searchBtn">Search</button>
         </div>
 
-        <div id="loadingMsg" class="loading hidden">⏳ Loading weather data...</div>
-        <div id="errorMsg" class="error hidden">City not found! Please try again!</div>
+        <div id="loadingMsg" class="loading hidden">Loading Regional Weather Data...</div>
+        <div id="errorMsg" class="error hidden">City Not Found or Network Error!</div>
 
         <div id="weatherResult" class="hidden">
-            <h2 id="cityName"></h2>
+            <div id="cityName" style="font-size: 20px; font-weight: 600; color: #111; margin-bottom: 5px;"></div>
             <span id="localTime" class="local-time"></span>
             
             <div class="temp-box">
-                <span id="temp"></span><span id="unitSymbol" class="unit">°C</span>
+                <span id="temp">--</span><span class="unit" id="unitSymbol">°C</span>
             </div>
             
-            <p id="description"></p>
+            <div id="description">--</div>
             
             <div class="details">
-                <div>💧 Humid: <span id="humidity"></span>%</div>
-                <div>💨 Wind: <span id="wind"></span> km/h</div>
+                <div>Humidity: <span id="humidity">--</span>%</div>
+                <div>Wind: <span id="wind">--</span> m/s</div>
             </div>
         </div>
     </div>

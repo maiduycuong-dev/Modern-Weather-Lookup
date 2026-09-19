@@ -22,9 +22,11 @@ let currentCityTimezone = null;
 let clockInterval = null;
 let currentTempC = null;
 let currentUnit = 'C';
+
 settingsBtn.addEventListener('click', () => {
     settingsPanel.classList.toggle('hidden');
 });
+
 themeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         const theme = btn.getAttribute('data-theme');
@@ -35,6 +37,7 @@ themeBtns.forEach(btn => {
         localStorage.setItem('selectedTheme', theme);
     });
 });
+
 fontBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         const fontName = btn.getAttribute('data-font');
@@ -45,6 +48,7 @@ fontBtns.forEach(btn => {
         btn.classList.add('active');
     });
 });
+
 unitBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         currentUnit = btn.getAttribute('data-unit');
@@ -58,6 +62,7 @@ unitBtns.forEach(btn => {
         }
     });
 });
+
 window.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('selectedTheme');
     if (savedTheme && savedTheme !== 'blue') {
@@ -86,9 +91,22 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function applyFont(fontName) {
-    document.documentElement.style.setProperty('--current-font', fontName);
-    document.body.style.fontFamily = `${fontName}, sans-serif`;
+    let fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+    
+    if (fontName === 'inter') {
+        fontFamily = "'Inter', sans-serif";
+    } else if (fontName === 'roboto') {
+        fontFamily = "'Roboto', sans-serif";
+    } else if (fontName === 'helvetica') {
+        fontFamily = "'Helvetica Neue', Helvetica, Arial, sans-serif";
+    } else if (fontName === 'segoe') {
+        fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+    }
+
+    document.documentElement.style.setProperty('--current-font', fontFamily);
+    document.body.style.fontFamily = fontFamily;
 }
+
 searchBtn.addEventListener('click', () => {
     const city = cityInput.value.trim();
     if (city === '') return;
@@ -187,9 +205,9 @@ function startLocalClock(timezone) {
                 if (part.type === 'year') year = part.value;
             }
 
-            localTime.innerText = `🕒 ${hour}:${minute}:${second} - ${month}/${day}/${year}`;
+            localTime.innerText = `${hour}:${minute}:${second} - ${month}/${day}/${year}`;
         } catch (e) {
-            localTime.innerText = "🕒 Unable to determine the time!";
+            localTime.innerText = "Unable To Determine The Time!";
         }
     }
 
@@ -198,11 +216,11 @@ function startLocalClock(timezone) {
 }
 
 function getWeatherDescription(code) {
-    if (code === 0) return "Clear skies ☀️";
-    if (code >= 1 && code <= 3) return "Cloudy ☁️";
-    if (code >= 45 && code <= 48) return "It's foggy 🌫️";
-    if (code >= 51 && code <= 67) return "Light rain / showers 🌧️";
-    if (code >= 71 && code <= 77) return "It's snowing 🌨️";
-    if (code >= 95) return "Thunderstorms ⛈️";
-    return "Normal weather ⛅";
+    if (code === 0) return "Clear Skies";
+    if (code >= 1 && code <= 3) return "Cloudy";
+    if (code >= 45 && code <= 48) return "Foggy";
+    if (code >= 51 && code <= 67) return "Light Rain or Showers";
+    if (code >= 71 && code <= 77) return "Snowing";
+    if (code >= 95) return "Thunderstorms";
+    return "Normal Weather";
 }
