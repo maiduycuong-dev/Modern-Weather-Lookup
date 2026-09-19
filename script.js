@@ -7,6 +7,7 @@ const loadingMsg = document.getElementById('loadingMsg');
 const settingsBtn = document.getElementById('settingsBtn');
 const settingsPanel = document.getElementById('settingsPanel');
 const themeBtns = document.querySelectorAll('.theme-btn');
+const fontBtns = document.querySelectorAll('.font-btn');
 
 const cityName = document.getElementById('cityName');
 const localTime = document.getElementById('localTime');
@@ -33,12 +34,39 @@ themeBtns.forEach(btn => {
     });
 });
 
+fontBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const fontName = btn.getAttribute('data-font');
+        applyFont(fontName);
+        localStorage.setItem('selectedFont', fontName);
+
+        fontBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    });
+});
+
 window.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('selectedTheme');
     if (savedTheme && savedTheme !== 'blue') {
         document.body.classList.add(`theme-${savedTheme}`);
     }
+
+    const savedFont = localStorage.getItem('selectedFont') || 'Segoe UI';
+    applyFont(savedFont);
+
+    fontBtns.forEach(btn => {
+        if (btn.getAttribute('data-font') === savedFont) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
 });
+
+function applyFont(fontName) {
+    document.documentElement.style.setProperty('--current-font', fontName);
+    document.body.style.fontFamily = `${fontName}, sans-serif`;
+}
 
 searchBtn.addEventListener('click', () => {
     const city = cityInput.value.trim();
