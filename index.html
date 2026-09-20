@@ -25,34 +25,39 @@
         </div>
 
         <div id="settingsWidget" class="settings-widget hidden">
-            <div class="widget-title">Widget Cài đặt</div>
-            
-            <div class="setting-row">
-                <span class="setting-label">Chủ đề nền</span>
-                <div class="theme-options">
-                    <button class="theme-btn" data-theme="default" style="background: linear-gradient(135deg, #00c6ff, #0072ff);"></button>
-                    <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);"></button>
-                    <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);"></button>
-                    <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);"></button>
-                    <button class="theme-btn" data-theme="sunshine" style="background: linear-gradient(135deg, #f7b733, #fc4a1a);"></button>
+            <div class="settings-content">
+                <div class="settings-header">
+                    <div class="widget-title" style="margin-bottom: 0;">Cài đặt giao diện</div>
+                    <button id="closeSettingsBtn" class="close-popup-btn" title="Đóng">✕</button>
                 </div>
-            </div>
-
-            <div class="setting-row">
-                <span class="setting-label">Phông chữ</span>
-                <div class="font-options">
-                    <button class="font-btn active" data-font="segoe">Segoe</button>
-                    <button class="font-btn" data-font="inter">Inter</button>
-                    <button class="font-btn" data-font="roboto">Roboto</button>
+                
+                <div class="setting-row">
+                    <span class="setting-label">Chủ đề nền</span>
+                    <div class="theme-options">
+                        <button class="theme-btn" data-theme="default" style="background: linear-gradient(135deg, #00c6ff, #0072ff);"></button>
+                        <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);"></button>
+                        <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);"></button>
+                        <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);"></button>
+                        <button class="theme-btn" data-theme="sunshine" style="background: linear-gradient(135deg, #f7b733, #fc4a1a);"></button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="setting-row">
-                <span class="setting-label">Đơn vị nhiệt độ</span>
-                <div class="unit-options">
-                    <button class="unit-btn active" data-unit="C">°C</button>
-                    <button class="unit-btn" data-unit="F">°F</button>
-                    <button class="unit-btn" data-unit="K">K</button>
+                <div class="setting-row">
+                    <span class="setting-label">Phông chữ</span>
+                    <div class="font-options">
+                        <button class="font-btn active" data-font="segoe">Segoe</button>
+                        <button class="font-btn" data-font="inter">Inter</button>
+                        <button class="font-btn" data-font="roboto">Roboto</button>
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <span class="setting-label">Đơn vị nhiệt độ</span>
+                    <div class="unit-options">
+                        <button class="unit-btn active" data-unit="C">°C</button>
+                        <button class="unit-btn" data-unit="F">°F</button>
+                        <button class="unit-btn" data-unit="K">K</button>
+                    </div>
                 </div>
             </div>
         </div>

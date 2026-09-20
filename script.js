@@ -6,6 +6,7 @@ const loadingMsg = document.getElementById('loadingMsg');
 
 const settingsBtn = document.getElementById('settingsBtn');
 const settingsWidget = document.getElementById('settingsWidget');
+const closeSettingsBtn = document.getElementById('closeSettingsBtn');
 
 const themeBtns = document.querySelectorAll('.theme-btn');
 const fontBtns = document.querySelectorAll('.font-btn');
@@ -26,6 +27,16 @@ let lastWeatherCode = null;
 
 settingsBtn.addEventListener('click', () => {
     settingsWidget.classList.toggle('hidden');
+});
+
+closeSettingsBtn.addEventListener('click', () => {
+    settingsWidget.classList.add('hidden');
+});
+
+settingsWidget.addEventListener('click', (e) => {
+    if (e.target === settingsWidget) {
+        settingsWidget.classList.add('hidden');
+    }
 });
 
 themeBtns.forEach(btn => {
