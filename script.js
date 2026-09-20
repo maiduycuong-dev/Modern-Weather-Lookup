@@ -58,7 +58,12 @@ unitBtns.forEach(btn => {
         unitBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
-        unitSymbol.innerText = `°${currentUnit}`;
+        if (currentUnit === 'K') {
+            unitSymbol.innerText = ` K`;
+        } else {
+            unitSymbol.innerText = `°${currentUnit}`;
+        }
+
         if (currentTempC !== null) {
             updateTemperatureDisplay();
         }
@@ -83,7 +88,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const savedUnit = localStorage.getItem('selectedUnit') || 'C';
     currentUnit = savedUnit;
-    unitSymbol.innerText = `°${currentUnit}`;
+    if (currentUnit === 'K') {
+        unitSymbol.innerText = ` K`;
+    } else {
+        unitSymbol.innerText = `°${currentUnit}`;
+    }
     unitBtns.forEach(btn => {
         if (btn.getAttribute('data-unit') === savedUnit) {
             btn.classList.add('active');
@@ -158,6 +167,9 @@ function updateTemperatureDisplay() {
     if (currentUnit === 'F') {
         const tempF = (currentTempC * 9/5) + 32;
         tempElem.innerText = tempF.toFixed(1);
+    } else if (currentUnit === 'K') {
+        const tempK = currentTempC + 273.15;
+        tempElem.innerText = tempK.toFixed(2);
     } else {
         tempElem.innerText = currentTempC;
     }
