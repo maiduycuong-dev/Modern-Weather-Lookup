@@ -2,9 +2,9 @@ This is a lightweight, client-side weather application built as a static website
 
 1. Overview:
 Allows users to search for cities and displays current weather information:
-- Uses Open-Meteo APIs:
-- Geocoding API to locate the city.
-- Forecast API to retrieve data on temperature, humidity, wind speed, and weather condition codes.
+- Uses Open-Meteo APIs
+- Geocoding API to locate the city
+- Forecast API to retrieve data on temperature, humidity, wind speed, and weather condition codes
 
 2. Information displayed on the site:
 - City name
@@ -24,3 +24,4 @@ Allows users to search for cities and displays current weather information:
 
 4. Project conclusion:
 This is a medium-scale project designed for easy extensibility. If you wish to customize the app, feel free to "Fork" this project, as it is open-source under the MIT License. Thank you for reading this "README.md" file; wishing you good health and good luck!
+(This is a fork of the original project!) 
