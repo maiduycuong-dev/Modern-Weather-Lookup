@@ -1,11 +1,9 @@
 const searchBtn = document.getElementById('searchBtn');
 const cityInput = document.getElementById('cityInput');
-const weatherResult = document.getElementById('weatherResult');
+const dashboardGrid = document.getElementById('dashboardGrid');
 const errorMsg = document.getElementById('errorMsg');
 const loadingMsg = document.getElementById('loadingMsg');
 
-const settingsBtn = document.getElementById('settingsBtn');
-const settingsPanel = document.getElementById('settingsPanel');
 const themeBtns = document.querySelectorAll('.theme-btn');
 const fontBtns = document.querySelectorAll('.font-btn');
 const unitBtns = document.querySelectorAll('.unit-btn');
@@ -22,10 +20,6 @@ let clockInterval = null;
 let currentTempC = null;
 let currentUnit = 'C';
 let lastWeatherCode = null;
-
-settingsBtn.addEventListener('click', () => {
-    settingsPanel.classList.toggle('hidden');
-});
 
 themeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -123,7 +117,7 @@ async function fetchWeather() {
 
     loadingMsg.classList.remove('hidden');
     errorMsg.classList.add('hidden');
-    weatherResult.classList.add('hidden');
+    dashboardGrid.classList.add('hidden');
 
     try {
         const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=vi&format=json`);
@@ -154,7 +148,7 @@ async function fetchWeather() {
         clockInterval = setInterval(() => updateLocalTime(timezone), 1000);
 
         loadingMsg.classList.add('hidden');
-        weatherResult.classList.remove('hidden');
+        dashboardGrid.classList.remove('hidden');
 
     } catch (err) {
         loadingMsg.classList.add('hidden');
