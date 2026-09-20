@@ -1,85 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather-Checking-Now</title>
+    <title>Weather Checking Now</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-default">
 
     <div class="weather-card">
         <div class="header-container">
-            <h2 id="cardTitle">Check Pannel</h2>
-            <button id="settingsBtn" title="Interface Settings">⚙️</button>
+            <h2 id="cardTitle">Weather Checking Now</h2>
+            <button id="settingsBtn" title="Cài đặt giao diện">⚙️</button>
         </div>
 
         <div id="settingsPanel" class="settings-panel hidden">
             <div class="setting-group">
-                <h4 id="labelTheme">Background Theme</h4>
+                <h4>Chủ đề nền</h4>
                 <div class="theme-options">
-                    <button class="theme-btn" data-theme="default" style="background: linear-gradient(135deg, #00c6ff, #0072ff);" title="Blue"></button>
-                    <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);" title="Sunset"></button>
-                    <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);" title="Emerald"></button>
-                    <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);" title="Dark"></button>
-                    <button class="theme-btn" data-theme="sunshine" style="background: linear-gradient(135deg, #f7b733, #fc4a1a);" title="Sunshine"></button>
+                    <button class="theme-btn" data-theme="default" style="background: linear-gradient(135deg, #00c6ff, #0072ff);" title="Xanh dương"></button>
+                    <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);" title="Hoàng hôn"></button>
+                    <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);" title="Ngọc lục bảo"></button>
+                    <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);" title="Tối"></button>
+                    <button class="theme-btn" data-theme="sunshine" style="background: linear-gradient(135deg, #f7b733, #fc4a1a);" title="Nắng ấm"></button>
                 </div>
             </div>
 
             <div class="setting-group" style="margin-top: 12px;">
-                <h4 id="labelFont">Fonts Theme</h4>
+                <h4>Phông chữ</h4>
                 <div class="font-options">
                     <button class="font-btn active" data-font="segoe">Segoe UI</button>
                     <button class="font-btn" data-font="inter">Inter</button>
                     <button class="font-btn" data-font="roboto">Roboto</button>
-                    <button class="font-btn" data-font="helvetica">Helvetica</button>
                 </div>
             </div>
 
             <div class="setting-group" style="margin-top: 12px;">
-                <h4 id="labelUnit">Temperature Unit</h4>
+                <h4>Đơn vị nhiệt độ</h4>
                 <div class="unit-options">
                     <button class="unit-btn active" data-unit="C">°C</button>
                     <button class="unit-btn" data-unit="F">°F</button>
                 </div>
             </div>
-
-            <div class="setting-group" style="margin-top: 12px;">
-                <h4 id="labelLang">Languages</h4>
-                <div class="lang-options">
-                    <button class="lang-btn active" data-lang="en">English</button>
-                    <button class="lang-btn" data-lang="zh">中文</button>
-                    <button class="lang-btn" data-lang="vi">Tiếng Việt</button>
-                </div>
-            </div>
         </div>
 
         <div class="search-box">
-            <input type="text" id="cityInput" placeholder="Enter city name...">
-            <button id="searchBtn">Search</button>
+            <input type="text" id="cityInput" placeholder="Nhập tên thành phố...">
+            <button id="searchBtn">Tìm kiếm</button>
         </div>
 
-        <div id="loadingMsg" class="loading hidden">Loading Regional Weather Data Now...</div>
-        <div id="errorMsg" class="error hidden">City Not Found or Network Error!</div>
+        <div id="loadingMsg" class="loading hidden">Đang tải dữ liệu thời tiết khu vực...</div>
+        <div id="errorMsg" class="error hidden">Không tìm thấy thành phố hoặc lỗi mạng!</div>
 
         <div id="weatherResult" class="hidden">
-            <div id="cityName" style="font-size: 20px; font-weight: 600; color: #111; margin-bottom: 5px;"></div>
-            <span id="localTime" class="local-time"></span>
-            
+            <div id="cityName" style="font-size: 20px; font-weight: bold; color: #222; margin-bottom: 5px;">--</div>
+            <div id="localTime" class="local-time">--</div>
             <div class="temp-box">
                 <span id="temp">--</span><span class="unit" id="unitSymbol">°C</span>
             </div>
-            
             <div id="description">--</div>
-            
+
             <div class="details">
-                <div><span id="labelHumidity">Humidity</span>: <span id="humidity">--</span>%</div>
-                <div><span id="labelWind">Wind</span>: <span id="wind">--</span> m/s</div>
+                <div>Độ ẩm: <span id="humidity">--</span>%</div>
+                <div>Gió: <span id="wind">--</span> m/s</div>
             </div>
         </div>
     </div>
 
-    <script src="script.js?v=3"></script>
+    <script src="script.js"></script>
 </body>
 </html>
