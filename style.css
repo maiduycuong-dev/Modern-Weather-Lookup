@@ -1,149 +1,186 @@
+/* --- ADN CỦA MSN WEATHER & MICROSOFT FLUENT UI --- */
 :root {
-    --bg-gradient: linear-gradient(135deg, #00c6ff, #0072ff);
-    --card-bg: rgba(255, 255, 255, 0.65);
-    --card-blur: blur(20px);
-    --text-color: #333333;
-    --primary-color: #0072ff;
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --direction: ltr;
+    --body-font: 'Segoe UI', Segoe UI Midlevel, Segoe WP, Arial, sans-serif;
+    --neutral-foreground-rest: #2b2b2b;
+    --neutral-foreground-hint: #757575;
+    
+    /* Thiết kế thẻ kính (Acrylic/Glassmorphism nâng cấp) */
+    --card-bg: rgba(255, 255, 255, 0.75);
+    --card-blur: blur(25px);
+    --card-border: 1px solid rgba(255, 255, 255, 0.6);
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
+    
+    /* Màu nền động mặc định (Gradient hiện đại) */
+    --bg-gradient: linear-gradient(135deg, #0078d4, #00bcf2);
+    --primary-color: #0078d4;
+    --control-corner-radius: 8px;
+    --transition-smooth: all 0.25s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
+/* Các tùy chọn Theme bám sát ADN màu sắc Microsoft */
 body.theme-sunset { 
-    --bg-gradient: linear-gradient(135deg, #f857a6, #ff5858); 
-    --primary-color: #ff5858; 
+    --bg-gradient: linear-gradient(135deg, #d13438, #ff8c00); 
+    --primary-color: #d13438; 
 }
 
 body.theme-emerald { 
-    --bg-gradient: linear-gradient(135deg, #11998e, #38ef7d); 
-    --primary-color: #11998e; 
+    --bg-gradient: linear-gradient(135deg, #107c10, #bad80a); 
+    --primary-color: #107c10; 
 }
 
 body.theme-dark { 
-    --bg-gradient: linear-gradient(135deg, #232526, #414345); 
-    --card-bg: rgba(35, 37, 38, 0.65); 
-    --text-color: #ffffff; 
-    --primary-color: #414345; 
+    --bg-gradient: linear-gradient(135deg, #202020, #2c2c2c); 
+    --card-bg: rgba(32, 32, 32, 0.75); 
+    --card-border: 1px solid rgba(255, 255, 255, 0.1);
+    --neutral-foreground-rest: #f3f3f3;
+    --neutral-foreground-hint: #a0a0a0;
+    --primary-color: #0078d4; 
 }
 
 body.theme-sunshine { 
-    --bg-gradient: linear-gradient(135deg, #f7b733, #fc4a1a); 
-    --primary-color: #fc4a1a; 
+    --bg-gradient: linear-gradient(135deg, #ffb900, #f7630c); 
+    --primary-color: #f7630c; 
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    transition: background 0.5s ease, color 0.5s ease;
+    font-family: var(--body-font);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body, html {
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 body {
-    background: var(--bg-gradient);
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    color: var(--text-color);
+    padding: 24px;
+    color: var(--neutral-foreground-rest);
+    transition: background 0.6s ease;
 }
 
 .app-container {
     width: 100%;
-    max-width: 800px;
+    max-width: 760px;
 }
 
+/* --- SEARCH SECTION & WIDGETS (Phong cách Microsoft Fluent Card) --- */
 .search-section, .widget {
     background: var(--card-bg);
     backdrop-filter: var(--card-blur);
     -webkit-backdrop-filter: var(--card-blur);
-    padding: 20px 25px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    border-radius: var(--control-corner-radius);
+    box-shadow: var(--card-shadow);
     margin-bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: var(--card-border);
     transition: var(--transition-smooth);
 }
 
 .search-section:hover, .widget:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.18);
 }
 
 .header-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 }
 
 .search-section h1 {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
+    letter-spacing: -0.2px;
 }
 
+/* Nút cài đặt hiệu ứng Fluent */
 .settings-toggle-btn {
     background: transparent;
     border: none;
-    font-size: 22px;
+    font-size: 20px;
     cursor: pointer;
-    padding: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 50%;
     transition: var(--transition-smooth);
 }
 
 .settings-toggle-btn:hover {
-    transform: rotate(90deg);
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.06);
+    transform: rotate(45deg);
+}
+
+body.theme-dark .settings-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .search-box {
     display: flex;
-    gap: 10px;
+    gap: 12px;
 }
 
 .search-box input {
     flex: 1;
-    padding: 12px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
+    padding: 10px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: calc(var(--control-corner-radius) - 2px);
     outline: none;
-    font-size: 16px;
-    background: rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.5);
     color: inherit;
     transition: var(--transition-smooth);
 }
 
+body.theme-dark .search-box input {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
 .search-box input:focus {
     border-color: var(--primary-color);
-    background: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 0 0 3px rgba(0, 114, 255, 0.2);
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.3);
 }
 
 .search-box button {
-    padding: 12px 20px;
+    padding: 10px 20px;
     background: var(--primary-color);
     color: #fff;
     border: none;
-    border-radius: 12px;
+    border-radius: calc(var(--control-corner-radius) - 2px);
     cursor: pointer;
     font-weight: 600;
+    font-size: 14px;
     transition: var(--transition-smooth);
 }
 
 .search-box button:hover {
     opacity: 0.9;
-    transform: scale(1.02);
+    transform: translateY(-1px);
 }
 
+/* --- SETTINGS POPUP (Dialog kiểu Windows 11) --- */
 .settings-widget {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    background: rgba(0, 0, 0, 0.45) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -151,7 +188,7 @@ body {
     margin: 0 !important;
     opacity: 1;
     visibility: visible;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
 .settings-widget.hidden {
@@ -165,17 +202,17 @@ body {
     backdrop-filter: var(--card-blur);
     -webkit-backdrop-filter: var(--card-blur);
     width: 90%;
-    max-width: 400px;
-    padding: 25px;
-    border-radius: 24px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    transform: translateY(0) scale(1);
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-width: 420px;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transform: scale(1);
+    transition: transform 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
 .settings-widget.hidden .settings-content {
-    transform: translateY(20px) scale(0.95);
+    transform: scale(0.92);
 }
 
 .settings-header {
@@ -188,22 +225,27 @@ body {
 .close-popup-btn {
     background: transparent;
     border: none;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
-    padding: 6px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: var(--transition-smooth);
 }
 
 .close-popup-btn:hover {
-    background: rgba(0, 0, 0, 0.08);
+    background: rgba(255, 0, 0, 0.1);
+    color: #d13438;
 }
 
 .setting-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
+    margin-top: 16px;
 }
 
 .setting-label {
@@ -220,9 +262,9 @@ body {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    border: 2px solid #fff;
+    border: 2px solid rgba(255, 255, 255, 0.8);
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     transition: var(--transition-smooth);
 }
 
@@ -233,12 +275,17 @@ body {
 .font-btn, .unit-btn {
     padding: 6px 12px;
     font-size: 13px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.3);
     color: inherit;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
     transition: var(--transition-smooth);
+}
+
+body.theme-dark .font-btn, body.theme-dark .unit-btn {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .font-btn:hover, .unit-btn:hover {
@@ -250,47 +297,49 @@ body {
     color: #fff;
     border-color: transparent;
     font-weight: 600;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* --- DASHBOARD GRID & WIDGETS --- */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
-    animation: fadeIn 0.5s ease-in-out;
+    gap: 16px;
+    animation: fadeIn 0.4s ease-out;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 .widget-title {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
-    opacity: 0.65;
-    margin-bottom: 12px;
+    letter-spacing: 0.6px;
+    color: var(--neutral-foreground-hint);
+    margin-bottom: 10px;
 }
 
 .widget-city {
     font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 8px;
+    font-weight: 600;
+    margin-bottom: 6px;
 }
 
 .widget-time {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
-    line-height: 1.5;
+    color: var(--neutral-foreground-hint);
+    line-height: 1.4;
 }
 
 .temp-box {
-    font-size: 42px;
-    font-weight: bold;
-    line-height: 1.1;
-    margin-bottom: 5px;
+    font-size: 48px;
+    font-weight: 300; /* Chuẩn font mỏng tinh tế của MSN Weather */
+    line-height: 1;
+    margin-bottom: 6px;
+    letter-spacing: -1px;
 }
 
 .temp-box .unit {
@@ -299,15 +348,15 @@ body {
 }
 
 #description {
-    font-size: 15px;
-    font-style: italic;
-    opacity: 0.9;
+    font-size: 14px;
+    color: var(--neutral-foreground-hint);
 }
 
 .metric-row {
     display: flex;
     justify-content: space-between;
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .hidden {
@@ -315,12 +364,12 @@ body {
 }
 
 .loading, .error {
-    margin-top: 12px;
-    font-size: 14px;
+    margin-top: 10px;
+    font-size: 13px;
     font-weight: 500;
     text-align: center;
 }
 
 .error {
-    color: #ff3b30;
+    color: #d13438;
 }

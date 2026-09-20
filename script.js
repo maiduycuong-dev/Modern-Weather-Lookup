@@ -142,7 +142,7 @@ async function fetchWeather() {
         const geoData = await geoResponse.json();
 
         if (!geoData.results || geoData.results.length === 0) {
-            throw new Error("Không Thấy Thành Phố ");
+            throw new Error("Không Thấy Thành Phố");
         }
 
         const { latitude: lat, longitude: lon, name, country, timezone } = geoData.results[0];

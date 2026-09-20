@@ -4,88 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Checking Now</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="theme-default">
-
+<body>
     <div class="app-container">
         <div class="search-section">
             <div class="header-row">
                 <h1>Xem Thời Tiết</h1>
-                <button id="settingsBtn" class="settings-toggle-btn" title="Cài đặt giao diện">⚙️</button>
+                <button id="settingsBtn" class="settings-toggle-btn" title="Cài đặt">⚙️</button>
             </div>
-
             <div class="search-box">
                 <input type="text" id="cityInput" placeholder="Nhập tên thành phố...">
                 <button id="searchBtn">Tìm kiếm</button>
             </div>
             <div id="loadingMsg" class="loading hidden">Đang tải dữ liệu thời tiết...</div>
-            <div id="errorMsg" class="error hidden">Không tìm thấy thành phố hoặc lỗi mạng!</div>
-        </div>
-
-        <div id="settingsWidget" class="settings-widget hidden">
-            <div class="settings-content">
-                <div class="settings-header">
-                    <div class="widget-title" style="margin-bottom: 0;">Cài đặt giao diện</div>
-                    <button id="closeSettingsBtn" class="close-popup-btn" title="Đóng">✕</button>
-                </div>
-                
-                <div class="setting-row">
-                    <span class="setting-label">Chủ đề nền</span>
-                    <div class="theme-options">
-                        <button class="theme-btn" data-theme="default" style="background: linear-gradient(135deg, #00c6ff, #0072ff);"></button>
-                        <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);"></button>
-                        <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);"></button>
-                        <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);"></button>
-                        <button class="theme-btn" data-theme="sunshine" style="background: linear-gradient(135deg, #f7b733, #fc4a1a);"></button>
-                    </div>
-                </div>
-
-                <div class="setting-row">
-                    <span class="setting-label">Phông chữ</span>
-                    <div class="font-options">
-                        <button class="font-btn active" data-font="segoe">Segoe</button>
-                        <button class="font-btn" data-font="inter">Inter</button>
-                        <button class="font-btn" data-font="roboto">Roboto</button>
-                    </div>
-                </div>
-
-                <div class="setting-row">
-                    <span class="setting-label">Đơn vị nhiệt độ</span>
-                    <div class="unit-options">
-                        <button class="unit-btn active" data-unit="C">°C</button>
-                        <button class="unit-btn" data-unit="F">°F</button>
-                        <button class="unit-btn" data-unit="K">K</button>
-                    </div>
-                </div>
-            </div>
+            <div id="errorMsg" class="error hidden">Không tìm thấy thành phố hoặc có lỗi xảy ra!</div>
         </div>
 
         <div id="dashboardGrid" class="dashboard-grid hidden">
             <div class="widget">
-                <div class="widget-title">Nhiệt độ & Trạng thái</div>
+                <div class="widget-title">Địa điểm & Thời gian</div>
                 <div id="cityName" class="widget-city">--</div>
+                <div id="localTime" class="widget-time">--</div>
+            </div>
+
+            <div class="widget">
+                <div class="widget-title">Nhiệt độ hiện tại</div>
                 <div class="temp-box">
-                    <span id="temp">--</span><span class="unit" id="unitSymbol">°C</span>
+                    <span id="temp">--</span><span id="unitSymbol" class="unit">°C</span>
                 </div>
                 <div id="description">--</div>
             </div>
 
             <div class="widget">
-                <div class="widget-title">Thời gian khu vực</div>
-                <div id="localTime" class="widget-time">--</div>
+                <div class="widget-title">Độ ẩm không khí</div>
+                <div class="metric-row">
+                    <span>Độ ẩm</span>
+                    <span><strong id="humidity">--</strong>%</span>
+                </div>
             </div>
 
             <div class="widget">
-                <div class="widget-title">Độ ẩm & Gió</div>
+                <div class="widget-title">Sức gió</div>
                 <div class="metric-row">
-                    <span>Độ ẩm:</span>
-                    <strong><span id="humidity">--</span>%</strong>
+                    <span>Tốc độ gió</span>
+                    <span><strong id="wind">--</strong> km/h</span>
                 </div>
-                <div class="metric-row" style="margin-top: 15px;">
-                    <span>Tốc độ gió:</span>
-                    <strong><span id="wind">--</span> m/s</strong>
+            </div>
+        </div>
+    </div>
+
+    <div id="settingsWidget" class="settings-widget hidden">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h3>Cài Đặt Giao Diện</h3>
+                <button id="closeSettingsBtn" class="close-popup-btn">✕</button>
+            </div>
+            
+            <div class="setting-row">
+                <span class="setting-label">Chủ đề nền</span>
+                <div class="theme-options">
+                    <button class="theme-btn" data-theme="default" style="background: linear-gradient(135deg, #0078d4, #00bcf2);"></button>
+                    <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #d13438, #ff8c00);"></button>
+                    <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #107c10, #bad80a);"></button>
+                    <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #202020, #2c2c2c);"></button>
+                    <button class="theme-btn" data-theme="sunshine" style="background: linear-gradient(135deg, #ffb900, #f7630c);"></button>
+                </div>
+            </div>
+
+            <div class="setting-row">
+                <span class="setting-label">Phông chữ</span>
+                <div class="font-options">
+                    <button class="font-btn active" data-font="segoe">Segoe</button>
+                    <button class="font-btn" data-font="inter">Inter</button>
+                    <button class="font-btn" data-font="roboto">Roboto</button>
+                </div>
+            </div>
+
+            <div class="setting-row">
+                <span class="setting-label">Đơn vị nhiệt độ</span>
+                <div class="unit-options">
+                    <button class="unit-btn active" data-unit="C">°C</button>
+                    <button class="unit-btn" data-unit="F">°F</button>
+                    <button class="unit-btn" data-unit="K">K</button>
                 </div>
             </div>
         </div>
