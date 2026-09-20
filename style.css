@@ -39,14 +39,33 @@ body {
     padding: 25px;
     border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    text-align: center;
     margin-bottom: 20px;
     transition: background 0.5s ease, color 0.5s ease;
 }
 
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
 .search-section h1 {
     font-size: 24px;
-    margin-bottom: 15px;
+}
+
+.settings-toggle-btn {
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.settings-toggle-btn:hover {
+    transform: rotate(90deg);
 }
 
 .search-box {
@@ -78,9 +97,62 @@ body {
     opacity: 0.9;
 }
 
+.settings-widget {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.setting-label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.theme-options, .font-options, .unit-options {
+    display: flex;
+    gap: 8px;
+}
+
+.theme-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.font-btn, .unit-btn {
+    padding: 4px 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    background: transparent;
+    color: inherit;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.font-btn.active, .unit-btn.active {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: transparent;
+    font-weight: 600;
+}
+
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 20px;
 }
 
@@ -138,48 +210,6 @@ body {
     font-size: 16px;
 }
 
-.setting-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.setting-label {
-    font-size: 13px;
-    font-weight: 500;
-}
-
-.theme-options, .font-options, .unit-options {
-    display: flex;
-    gap: 8px;
-}
-
-.theme-btn {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-.font-btn, .unit-btn {
-    padding: 4px 8px;
-    font-size: 12px;
-    border: 1px solid #ccc;
-    background: transparent;
-    color: inherit;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.font-btn.active, .unit-btn.active {
-    background: var(--primary-color);
-    color: #fff;
-    border-color: transparent;
-    font-weight: 600;
-}
-
 .hidden {
     display: none !important;
 }
@@ -188,6 +218,7 @@ body {
     margin-top: 10px;
     font-size: 14px;
     font-weight: 500;
+    text-align: center;
 }
 
 .error {

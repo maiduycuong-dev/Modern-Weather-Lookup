@@ -4,6 +4,9 @@ const dashboardGrid = document.getElementById('dashboardGrid');
 const errorMsg = document.getElementById('errorMsg');
 const loadingMsg = document.getElementById('loadingMsg');
 
+const settingsBtn = document.getElementById('settingsBtn');
+const settingsWidget = document.getElementById('settingsWidget');
+
 const themeBtns = document.querySelectorAll('.theme-btn');
 const fontBtns = document.querySelectorAll('.font-btn');
 const unitBtns = document.querySelectorAll('.unit-btn');
@@ -20,6 +23,10 @@ let clockInterval = null;
 let currentTempC = null;
 let currentUnit = 'C';
 let lastWeatherCode = null;
+
+settingsBtn.addEventListener('click', () => {
+    settingsWidget.classList.toggle('hidden');
+});
 
 themeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
