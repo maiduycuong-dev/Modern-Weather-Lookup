@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Weather Lookup</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body class="theme-default">
 
     <div class="weather-card">
         <div class="header-container">
-            <h2>Check the Weather</h2>
+            <h2 id="cardTitle">Check the Weather</h2>
             <button id="settingsBtn" title="Interface Settings">⚙️</button>
         </div>
 
         <div id="settingsPanel" class="settings-panel hidden">
             <div class="setting-group">
-                <h4>Background Theme</h4>
+                <h4 id="labelTheme">Background Theme</h4>
                 <div class="theme-options">
                     <button class="theme-btn" data-theme="default" style="background: linear-gradient(135deg, #00c6ff, #0072ff);" title="Blue"></button>
                     <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);" title="Sunset"></button>
@@ -28,7 +28,7 @@
             </div>
 
             <div class="setting-group" style="margin-top: 12px;">
-                <h4>Font Family</h4>
+                <h4 id="labelFont">Fonts Theme</h4>
                 <div class="font-options">
                     <button class="font-btn active" data-font="segoe">Segoe UI</button>
                     <button class="font-btn" data-font="inter">Inter</button>
@@ -38,10 +38,19 @@
             </div>
 
             <div class="setting-group" style="margin-top: 12px;">
-                <h4>Temperature Unit</h4>
+                <h4 id="labelUnit">Temperature Unit</h4>
                 <div class="unit-options">
                     <button class="unit-btn active" data-unit="C">°C</button>
                     <button class="unit-btn" data-unit="F">°F</button>
+                </div>
+            </div>
+
+            <div class="setting-group" style="margin-top: 12px;">
+                <h4 id="labelLang">Languages</h4>
+                <div class="lang-options">
+                    <button class="lang-btn active" data-lang="en">English</button>
+                    <button class="lang-btn" data-lang="zh">中文</button>
+                    <button class="lang-btn" data-lang="vi">Tiếng Việt</button>
                 </div>
             </div>
         </div>
@@ -51,7 +60,7 @@
             <button id="searchBtn">Search</button>
         </div>
 
-        <div id="loadingMsg" class="loading hidden">Loading Regional Weather Data...</div>
+        <div id="loadingMsg" class="loading hidden">Loading Regional Weather Data Now...</div>
         <div id="errorMsg" class="error hidden">City Not Found or Network Error!</div>
 
         <div id="weatherResult" class="hidden">
@@ -65,12 +74,12 @@
             <div id="description">--</div>
             
             <div class="details">
-                <div>Humidity: <span id="humidity">--</span>%</div>
-                <div>Wind: <span id="wind">--</span> m/s</div>
+                <div><span id="labelHumidity">Humidity</span>: <span id="humidity">--</span>%</div>
+                <div><span id="labelWind">Wind</span>: <span id="wind">--</span> m/s</div>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=3"></script>
 </body>
 </html>
