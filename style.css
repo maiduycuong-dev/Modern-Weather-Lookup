@@ -1,7 +1,7 @@
 :root {
     --bg-gradient: linear-gradient(135deg, #00c6ff, #0072ff);
-    --card-bg: rgba(255, 255, 255, 0.85);
-    --card-blur: blur(16px);
+    --card-bg: rgba(255, 255, 255, 0.65);
+    --card-blur: blur(20px);
     --text-color: #333333;
     --primary-color: #0072ff;
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -19,7 +19,7 @@ body.theme-emerald {
 
 body.theme-dark { 
     --bg-gradient: linear-gradient(135deg, #232526, #414345); 
-    --card-bg: rgba(35, 37, 38, 0.8); 
+    --card-bg: rgba(35, 37, 38, 0.65); 
     --text-color: #ffffff; 
     --primary-color: #414345; 
 }
@@ -58,15 +58,15 @@ body {
     -webkit-backdrop-filter: var(--card-blur);
     padding: 20px 25px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     transition: var(--transition-smooth);
 }
 
 .search-section:hover, .widget:hover {
     transform: translateY(-3px);
-    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.15);
 }
 
 .header-row {
@@ -104,19 +104,19 @@ body {
 .search-box input {
     flex: 1;
     padding: 12px 16px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 12px;
     outline: none;
     font-size: 16px;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.4);
     color: inherit;
     transition: var(--transition-smooth);
 }
 
 .search-box input:focus {
     border-color: var(--primary-color);
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 0 3px rgba(0, 114, 255, 0.15);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 0 3px rgba(0, 114, 255, 0.2);
 }
 
 .search-box button {
@@ -136,18 +136,19 @@ body {
 }
 
 .settings-widget {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.45) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 1000 !important;
+    margin: 0 !important;
     opacity: 1;
     visibility: visible;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -167,8 +168,8 @@ body {
     max-width: 400px;
     padding: 25px;
     border-radius: 24px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     transform: translateY(0) scale(1);
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
