@@ -1,24 +1,17 @@
-/* --- ADN CỦA MSN WEATHER & MICROSOFT FLUENT UI --- */
 :root {
     --direction: ltr;
     --body-font: 'Segoe UI', Segoe UI Midlevel, Segoe WP, Arial, sans-serif;
     --neutral-foreground-rest: #2b2b2b;
     --neutral-foreground-hint: #757575;
-    
-    /* Thiết kế thẻ kính (Acrylic/Glassmorphism nâng cấp) */
     --card-bg: rgba(255, 255, 255, 0.75);
     --card-blur: blur(25px);
     --card-border: 1px solid rgba(255, 255, 255, 0.6);
     --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
-    
-    /* Màu nền động mặc định (Gradient hiện đại) */
     --bg-gradient: linear-gradient(135deg, #0078d4, #00bcf2);
     --primary-color: #0078d4;
     --control-corner-radius: 8px;
     --transition-smooth: all 0.25s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
-
-/* Các tùy chọn Theme bám sát ADN màu sắc Microsoft */
 body.theme-sunset { 
     --bg-gradient: linear-gradient(135deg, #d13438, #ff8c00); 
     --primary-color: #d13438; 
@@ -71,8 +64,6 @@ body {
     width: 100%;
     max-width: 760px;
 }
-
-/* --- SEARCH SECTION & WIDGETS (Phong cách Microsoft Fluent Card) --- */
 .search-section, .widget {
     background: var(--card-bg);
     backdrop-filter: var(--card-blur);
@@ -101,8 +92,6 @@ body {
     font-weight: 600;
     letter-spacing: -0.2px;
 }
-
-/* Nút cài đặt hiệu ứng Fluent */
 .settings-toggle-btn {
     background: transparent;
     border: none;
