@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Weather Lookup</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body class="theme-default">
 
@@ -60,6 +60,10 @@
             <button id="searchBtn">Search</button>
         </div>
 
+        <div class="history-trigger-box">
+            <button id="historyModalBtn" class="history-trigger-btn">📅 Select past weather date</button>
+        </div>
+
         <div id="loadingMsg" class="loading hidden">Loading Regional Weather Data Now...</div>
         <div id="errorMsg" class="error hidden">City Not Found or Network Error!</div>
 
@@ -80,6 +84,32 @@
         </div>
     </div>
 
-    <script src="script.js?v=3"></script>
+    <div id="historyModal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="labelHistoryTitle">Select Past Date</h3>
+                <button class="close-modal-btn" id="closeHistoryBtn">✕</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="custom-calendar">
+                    <div class="cal-nav">
+                        <button id="prevMonthBtn">‹</button>
+                        <span id="calMonthYear">September 2026</span>
+                        <button id="nextMonthBtn">›</button>
+                    </div>
+                    <div class="cal-weekdays" id="calWeekdaysContainer">
+                        <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
+                    </div>
+                    <div class="cal-grid" id="calGrid"></div>
+                    <div class="cal-footer">
+                        <button id="calTodayBtn">Today</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=9"></script>
 </body>
 </html>

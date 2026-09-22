@@ -15,21 +15,10 @@ body {
     transition: background 0.5s ease;
 }
 
-body.theme-sunset {
-    background: linear-gradient(135deg, #f857a6, #ff5858);
-}
-
-body.theme-emerald {
-    background: linear-gradient(135deg, #11998e, #38ef7d);
-}
-
-body.theme-dark {
-    background: linear-gradient(135deg, #232526, #414345);
-}
-
-body.theme-sunshine {
-    background: linear-gradient(135deg, #f7b733, #fc4a1a);
-}
+body.theme-sunset { background: linear-gradient(135deg, #f857a6, #ff5858); }
+body.theme-emerald { background: linear-gradient(135deg, #11998e, #38ef7d); }
+body.theme-dark { background: linear-gradient(135deg, #232526, #414345); }
+body.theme-sunshine { background: linear-gradient(135deg, #f7b733, #fc4a1a); }
 
 .weather-card {
     background: rgba(255, 255, 255, 0.35);
@@ -43,7 +32,6 @@ body.theme-sunshine {
     max-width: 420px;
     text-align: center;
     position: relative;
-    overflow: hidden;
     box-sizing: border-box;
 }
 
@@ -87,9 +75,9 @@ h2 {
     border: 1px solid rgba(255, 255, 255, 0.4);
     text-align: left;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    max-height: 350px;
+    max-height: 400px;
     opacity: 1;
-    overflow: hidden;
+    overflow-y: auto;
     transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
                 opacity 0.3s ease, 
                 padding 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
@@ -133,17 +121,15 @@ h2 {
     padding: 0;
 }
 
-.theme-btn:hover {
-    transform: scale(1.1);
-}
+.theme-btn:hover { transform: scale(1.1); }
 
-.font-options, .unit-options {
+.font-options, .unit-options, .lang-options {
     display: flex;
     gap: 6px;
     flex-wrap: wrap;
 }
 
-.font-btn, .unit-btn {
+.font-btn, .unit-btn, .lang-btn {
     background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
@@ -158,13 +144,13 @@ h2 {
     transition: all 0.2s ease;
 }
 
-.font-btn:hover, .unit-btn:hover {
+.font-btn:hover, .unit-btn:hover, .lang-btn:hover {
     background: rgba(255, 255, 255, 0.6);
     border-color: #fff;
     transform: translateY(-1px);
 }
 
-.font-btn.active, .unit-btn.active {
+.font-btn.active, .unit-btn.active, .lang-btn.active {
     background-color: #0072ff;
     color: white;
     border-color: #0072ff;
@@ -174,10 +160,221 @@ h2 {
 .search-box {
     display: flex;
     gap: 10px;
+    margin-bottom: 12px;
+}
+
+.history-trigger-box {
     margin-bottom: 15px;
 }
 
-input {
+.history-trigger-btn {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #222;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.history-trigger-btn:hover {
+    background: rgba(255, 255, 255, 0.6);
+    border-color: #fff;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+    display: none !important;
+}
+
+.modal-card {
+    background: rgba(240, 244, 252, 0.92);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 340px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    text-align: left;
+    animation: scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding-bottom: 8px;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.close-modal-btn {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #444;
+    padding: 2px 6px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.close-modal-btn:hover {
+    background: rgba(0, 0, 0, 0.08);
+    color: #000;
+}
+
+.custom-calendar {
+    width: 100%;
+}
+
+.cal-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cal-nav button {
+    background: rgba(0, 0, 0, 0.06);
+    border: none;
+    color: #222;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.cal-nav button:hover {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+#calMonthYear {
+    font-size: 14px;
+    font-weight: 600;
+    color: #222;
+}
+
+.cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.cal-day {
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #222;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.cal-day:hover:not(.disabled):not(.inactive) {
+    background: rgba(0, 114, 255, 0.15);
+}
+
+.cal-day.inactive {
+    color: #aaa;
+    pointer-events: none;
+}
+
+.cal-day.disabled {
+    color: #ccc;
+    background: transparent;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.cal-day.today {
+    border: 1px dashed #0072ff;
+    font-weight: bold;
+}
+
+.cal-day.selected {
+    background-color: #0072ff !important;
+    color: white !important;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 114, 255, 0.3);
+}
+
+.cal-footer {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+#calTodayBtn {
+    width: 100%;
+    background: rgba(0, 114, 255, 0.1);
+    color: #0072ff;
+    border: none;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#calTodayBtn:hover {
+    background: rgba(0, 114, 255, 0.2);
+}
+
+input[type="text"] {
     flex: 1;
     padding: 12px 14px;
     border: 1px solid rgba(255, 255, 255, 0.5);
@@ -188,19 +385,10 @@ input {
     outline: none;
     font-size: 14px;
     font-family: inherit;
-    transition: all 0.2s;
     color: #111;
 }
 
-input::placeholder {
-    color: rgba(0, 0, 0, 0.45);
-}
-
-input:focus {
-    border-color: rgba(255, 255, 255, 0.9);
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 0 10px rgba(0, 114, 255, 0.2);
-}
+input[type="text"]::placeholder { color: rgba(0, 0, 0, 0.45); }
 
 button {
     background-color: #0072ff;
@@ -210,38 +398,18 @@ button {
     border-radius: 12px;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.2s, transform 0.1s;
     font-family: inherit;
+    transition: background-color 0.2s;
 }
 
-button:hover {
-    background-color: #005bb5;
-}
+button:hover { background-color: #005bb5; }
 
-button:active {
-    transform: scale(0.98);
-}
-
-.loading {
-    color: #222324;
-    font-weight: bold;
-    margin: 15px 0;
-    font-size: 14px;
-    animation: fadeIn 0.3s ease-in-out forwards;
-}
-
-#weatherResult {
-    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+.loading { color: #222324; font-weight: bold; margin: 15px 0; font-size: 14px; }
+#weatherResult { animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
 
 .local-time {
@@ -258,24 +426,9 @@ button:active {
     border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-.temp-box {
-    font-size: 64px;
-    font-weight: bold;
-    color: #222324;
-    margin: 10px 0;
-}
-
-.unit {
-    font-size: 24px;
-    vertical-align: super;
-}
-
-#description {
-    font-size: 18px;
-    color: #333;
-    text-transform: capitalize;
-    margin-bottom: 15px;
-}
+.temp-box { font-size: 64px; font-weight: bold; color: #222324; margin: 10px 0; }
+.unit { font-size: 24px; vertical-align: super; }
+#description { font-size: 18px; color: #333; text-transform: capitalize; margin-bottom: 15px; }
 
 .details {
     background: rgba(255, 255, 255, 0.3);
@@ -290,90 +443,5 @@ button:active {
     border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-.hidden {
-    display: none !important;
-}
-
-.error {
-    color: #942020;
-    margin-top: 15px;
-    font-size: 14px;
-    font-weight: 500;
-    animation: fadeIn 0.3s ease-in-out forwards;
-}
-@media screen and (max-width: 480px) {
-    body {
-        padding: 10px;
-    }
-
-    .weather-card {
-        padding: 20px 15px;
-        border-radius: 18px;
-    }
-
-    h2 {
-        font-size: 19px;
-    }
-
-    .temp-box {
-        font-size: 52px;
-    }
-
-    .unit {
-        font-size: 20px;
-    }
-
-    .theme-options {
-        justify-content: space-between;
-    }
-
-    .theme-btn {
-        width: 28px;
-        height: 28px;
-    }
-}
-@media screen and (min-width: 481px) and (max-width: 768px) {
-    .weather-card {
-        max-width: 380px;
-        padding: 25px 30px;
-    }
-}
-@media screen and (min-width: 769px) {
-    .weather-card {
-        width: 420px;
-        padding: 40px;
-    }
-}
-.lang-options {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-}
-
-.lang-btn {
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    color: #222;
-    padding: 5px 10px;
-    border-radius: 8px;
-    font-size: 12px;
-    cursor: pointer;
-    font-weight: 500;
-    font-family: inherit;
-    transition: all 0.2s ease;
-}
-
-.lang-btn:hover {
-    background: rgba(255, 255, 255, 0.6);
-    border-color: #fff;
-    transform: translateY(-1px);
-}
-
-.lang-btn.active {
-    background-color: #0072ff;
-    color: white;
-    border-color: #0072ff;
-    box-shadow: 0 4px 10px rgba(0, 114, 255, 0.3);
-}
+.hidden { display: none !important; }
+.error { color: #942020; margin-top: 15px; font-size: 14px; font-weight: 500; }
