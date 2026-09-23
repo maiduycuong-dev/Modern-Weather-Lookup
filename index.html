@@ -4,26 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Weather Lookup</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=9">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&family=Lato:wght@400;700&family=Outfit:wght@400;500;600&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=15">
 </head>
 <body class="theme-default">
 
-    <div class="weather-card">
+    <div class="weather-card" id="weatherCard">
         <div class="header-container">
             <h2 id="cardTitle">Check the Weather</h2>
-            <button id="settingsBtn" title="Interface Settings">⚙️</button>
+            <button id="settingsBtn" title="Settings">⚙️</button>
         </div>
 
         <div id="settingsPanel" class="settings-panel hidden">
             <div class="setting-group">
                 <h4 id="labelTheme">Background Theme</h4>
                 <div class="theme-options">
-                    <button class="theme-btn" data-theme="default" style="background: linear-gradient(135deg, #00c6ff, #0072ff);" title="Blue"></button>
+                    <button class="theme-btn active" data-theme="default" style="background: rgba(255, 255, 255, 0.95);" title="Clean White"></button>
+                    <button class="theme-btn" data-theme="blue" style="background: linear-gradient(135deg, #00c6ff, #0072ff);" title="Ocean Blue"></button>
                     <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);" title="Sunset"></button>
                     <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);" title="Emerald"></button>
+                    <button class="theme-btn" data-theme="crimson" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);" title="Crimson Red"></button>
                     <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);" title="Dark"></button>
-                    <button class="theme-btn" data-theme="sunshine" style="background: linear-gradient(135deg, #f7b733, #fc4a1a);" title="Sunshine"></button>
+                </div>
+            </div>
+
+            <div class="setting-group" style="margin-top: 12px;">
+                <h4 id="labelGlass">Glass Effect</h4>
+                <div class="glass-slider-box">
+                    <input type="range" id="glassSlider" min="10" max="60" value="30" step="5">
                 </div>
             </div>
 
@@ -33,6 +41,10 @@
                     <button class="font-btn active" data-font="segoe">Segoe UI</button>
                     <button class="font-btn" data-font="inter">Inter</button>
                     <button class="font-btn" data-font="roboto">Roboto</button>
+                    <button class="font-btn" data-font="aptos">Aptos</button>
+                    <button class="font-btn" data-font="lato">Lato</button>
+                    <button class="font-btn" data-font="outfit">Outfit</button>
+                    <button class="font-btn" data-font="quicksand">Quicksand</button>
                     <button class="font-btn" data-font="helvetica">Helvetica</button>
                 </div>
             </div>
@@ -47,10 +59,15 @@
 
             <div class="setting-group" style="margin-top: 12px;">
                 <h4 id="labelLang">Languages</h4>
-                <div class="lang-options">
+                <div class="lang-options grid-langs">
                     <button class="lang-btn active" data-lang="en">English</button>
                     <button class="lang-btn" data-lang="zh">中文</button>
                     <button class="lang-btn" data-lang="vi">Tiếng Việt</button>
+                    <button class="lang-btn" data-lang="fr">Français</button>
+                    <button class="lang-btn" data-lang="de">Deutsch</button>
+                    <button class="lang-btn" data-lang="ru">Русский</button>
+                    <button class="lang-btn" data-lang="ja">日本語</button>
+                    <button class="lang-btn" data-lang="ko">한국어</button>
                 </div>
             </div>
         </div>
@@ -61,11 +78,16 @@
         </div>
 
         <div class="history-trigger-box">
-            <button id="historyModalBtn" class="history-trigger-btn">📅 Select past weather date</button>
+            <button id="historyModalBtn" class="history-trigger-btn">📅 --</button>
+        </div>
+        
+        <div id="hourSelectorBox" class="hour-selector-box hidden">
+            <label for="hourSelect" id="labelHourSelect">Select Hour:</label>
+            <select id="hourSelect"></select>
         </div>
 
-        <div id="loadingMsg" class="loading hidden">Loading Regional Weather Data Now...</div>
-        <div id="errorMsg" class="error hidden">City Not Found or Network Error!</div>
+        <div id="loadingMsg" class="loading hidden">Loading...</div>
+        <div id="errorMsg" class="error hidden">Error!</div>
 
         <div id="weatherResult" class="hidden">
             <div id="cityName" style="font-size: 20px; font-weight: 600; color: #111; margin-bottom: 5px;"></div>
@@ -80,6 +102,7 @@
             <div class="details">
                 <div><span id="labelHumidity">Humidity</span>: <span id="humidity">--</span>%</div>
                 <div><span id="labelWind">Wind</span>: <span id="wind">--</span> m/s</div>
+                <div><span id="labelUV">UV Index</span>: <span id="uvIndex">--</span></div>
             </div>
         </div>
     </div>
@@ -87,7 +110,7 @@
     <div id="historyModal" class="modal-overlay hidden">
         <div class="modal-card">
             <div class="modal-header">
-                <h3 id="labelHistoryTitle">Select Past Date</h3>
+                <h3 id="labelHistoryTitle">Select Past Date (Up to 2 Months)</h3>
                 <button class="close-modal-btn" id="closeHistoryBtn">✕</button>
             </div>
             
@@ -98,9 +121,7 @@
                         <span id="calMonthYear">September 2026</span>
                         <button id="nextMonthBtn">›</button>
                     </div>
-                    <div class="cal-weekdays" id="calWeekdaysContainer">
-                        <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
-                    </div>
+                    <div class="cal-weekdays" id="calWeekdaysContainer"></div>
                     <div class="cal-grid" id="calGrid"></div>
                     <div class="cal-footer">
                         <button id="calTodayBtn">Today</button>
@@ -110,6 +131,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=9"></script>
+    <script src="script.js?v=15"></script>
 </body>
 </html>
