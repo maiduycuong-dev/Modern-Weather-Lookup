@@ -1,7 +1,6 @@
 let currentUnit = 'C';
 let selectedDate = null;
 let selectedHour = '12:00';
-let activeTheme = 'default';
 let currentCity = '';
 let currentWeatherData = null;
 
@@ -12,17 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initEvents() {
-    const weatherCard = document.getElementById('weatherCard');
-    const toggleBtn = document.getElementById('floatingToggleBtn');
-    
-    toggleBtn.addEventListener('click', () => {
-        weatherCard.classList.toggle('hidden');
-    });
-
-    document.getElementById('closeWidgetBtn').addEventListener('click', () => {
-        weatherCard.classList.add('hidden');
-    });
-
     document.getElementById('searchBtn').addEventListener('click', () => {
         const city = document.getElementById('cityInput').value.trim();
         if (city) fetchWeather(city);
@@ -35,11 +23,6 @@ function initEvents() {
         }
     });
 
-    const settingsModal = document.getElementById('settingsModal');
-    document.getElementById('settingsBtn').addEventListener('click', () => settingsModal.classList.remove('hidden'));
-    document.getElementById('closeSettingsBtn').addEventListener('click', () => settingsModal.classList.add('hidden'));
-    settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) settingsModal.classList.add('hidden'); });
-
     const historyModal = document.getElementById('historyModal');
     document.getElementById('historyModalBtn').addEventListener('click', () => historyModal.classList.remove('hidden'));
     document.getElementById('closeHistoryBtn').addEventListener('click', () => historyModal.classList.add('hidden'));
@@ -49,8 +32,7 @@ function initEvents() {
         btn.addEventListener('click', (e) => {
             document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
             e.target.classList.add('active');
-            activeTheme = e.target.dataset.theme;
-            document.body.className = `theme-${activeTheme}`;
+            document.body.className = `theme-${e.target.dataset.theme}`;
         });
     });
 
@@ -76,8 +58,10 @@ function initEvents() {
     if (glassSlider) {
         glassSlider.addEventListener('input', (e) => {
             const val = e.target.value;
-            weatherCard.style.backdropFilter = `blur(${val}px)`;
-            weatherCard.style.webkitBackdropFilter = `blur(${val}px)`;
+            document.querySelectorAll('.widget-box').forEach(box => {
+                box.style.backdropFilter = `blur(${val}px)`;
+                box.style.webkitBackdropFilter = `blur(${val}px)`;
+            });
         });
     }
 }
@@ -86,9 +70,6 @@ function applyFont(fontKey) {
     let fontFamily = "'Segoe UI', sans-serif";
     if (fontKey === 'inter') fontFamily = "'Inter', sans-serif";
     else if (fontKey === 'roboto') fontFamily = "'Roboto', sans-serif";
-    else if (fontKey === 'lato') fontFamily = "'Lato', sans-serif";
-    else if (fontKey === 'outfit') fontFamily = "'Outfit', sans-serif";
-    else if (fontKey === 'quicksand') fontFamily = "'Quicksand', sans-serif";
     document.documentElement.style.setProperty('--current-font', fontFamily);
 }
 
@@ -123,7 +104,6 @@ async function fetchWeather(city) {
         currentWeatherData = weatherData;
         displayWeatherData(weatherData);
         showLoading(false);
-        document.getElementById('weatherResult').classList.remove('hidden');
 
     } catch (err) {
         console.error(err);
@@ -205,7 +185,7 @@ function initCalendar() {
 
             dayCell.addEventListener('click', () => {
                 selectedDate = dateStr;
-                document.getElementById('historyModalBtn').innerText = `📅 ${dateStr}`;
+                document.getElementById('historyModalBtn').innerText = `📅 Date: ${dateStr}`;
                 document.getElementById('historyModal').classList.add('hidden');
                 document.getElementById('hourSelectorBox').classList.remove('hidden');
                 renderHourGrid();
@@ -230,7 +210,7 @@ function initCalendar() {
 
     document.getElementById('calTodayBtn').addEventListener('click', () => {
         selectedDate = null;
-        document.getElementById('historyModalBtn').innerText = `📅 Today`;
+        document.getElementById('historyModalBtn').innerText = `📅 Select Date: Today`;
         document.getElementById('historyModal').classList.add('hidden');
         document.getElementById('hourSelectorBox').classList.add('hidden');
         if (currentCity) fetchWeather(currentCity);
