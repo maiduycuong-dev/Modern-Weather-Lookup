@@ -1,5 +1,4 @@
 let currentUnit = 'C';
-let currentLang = 'en';
 let selectedDate = null;
 let selectedHour = '12:00';
 let activeTheme = 'default';
@@ -13,6 +12,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initEvents() {
+    const weatherCard = document.getElementById('weatherCard');
+    const toggleBtn = document.getElementById('floatingToggleBtn');
+    
+    toggleBtn.addEventListener('click', () => {
+        weatherCard.classList.toggle('hidden');
+    });
+
+    document.getElementById('closeWidgetBtn').addEventListener('click', () => {
+        weatherCard.classList.add('hidden');
+    });
+
     document.getElementById('searchBtn').addEventListener('click', () => {
         const city = document.getElementById('cityInput').value.trim();
         if (city) fetchWeather(city);
@@ -66,9 +76,8 @@ function initEvents() {
     if (glassSlider) {
         glassSlider.addEventListener('input', (e) => {
             const val = e.target.value;
-            const card = document.getElementById('weatherCard');
-            card.style.backdropFilter = `blur(${val}px)`;
-            card.style.webkitBackdropFilter = `blur(${val}px)`;
+            weatherCard.style.backdropFilter = `blur(${val}px)`;
+            weatherCard.style.webkitBackdropFilter = `blur(${val}px)`;
         });
     }
 }

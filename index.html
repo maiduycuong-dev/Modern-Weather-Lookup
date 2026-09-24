@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Weather Lookup</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
-    <link rel="apple-touch-icon" href="favicon.png">
-    
+    <title>Floating Weather Widget</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&family=Lato:wght@400;700&family=Outfit:wght@400;500;600&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=18">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-default">
 
-    <div class="weather-card" id="weatherCard">
+    <button id="floatingToggleBtn" class="floating-toggle-btn">🌤️</button>
+
+    <div class="weather-card floating-widget hidden" id="weatherCard">
         <div class="header-container">
-            <h2 id="cardTitle">Check the Weather</h2>
-            <button id="settingsBtn" title="Settings">⚙️</button>
+            <h2 id="cardTitle">Weather Widget</h2>
+            <div class="header-actions">
+                <button id="settingsBtn" title="Settings">⚙️</button>
+                <button id="closeWidgetBtn" title="Close">✕</button>
+            </div>
         </div>
 
         <div class="search-box">
@@ -25,7 +26,7 @@
         </div>
 
         <div class="history-trigger-box">
-            <button id="historyModalBtn" class="history-trigger-btn">📅 --</button>
+            <button id="historyModalBtn" class="history-trigger-btn">📅 Today</button>
         </div>
         
         <div id="hourSelectorBox" class="hour-selector-box hidden">
@@ -56,6 +57,7 @@
             </div>
         </div>
     </div>
+
     <div id="settingsModal" class="modal-overlay hidden">
         <div class="modal-card">
             <div class="modal-header">
@@ -67,12 +69,12 @@
                 <div class="setting-group" style="margin-bottom: 15px;">
                     <h4 id="labelTheme">Background Theme</h4>
                     <div class="theme-options">
-                        <button class="theme-btn active" data-theme="default" style="background: rgba(255, 255, 255, 0.95);" title="Clean White"></button>
-                        <button class="theme-btn" data-theme="blue" style="background: linear-gradient(135deg, #00c6ff, #0072ff);" title="Ocean Blue"></button>
-                        <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);" title="Sunset"></button>
-                        <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);" title="Emerald"></button>
-                        <button class="theme-btn" data-theme="crimson" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);" title="Crimson Red"></button>
-                        <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);" title="Dark"></button>
+                        <button class="theme-btn active" data-theme="default" style="background: rgba(255, 255, 255, 0.95);"></button>
+                        <button class="theme-btn" data-theme="blue" style="background: linear-gradient(135deg, #00c6ff, #0072ff);"></button>
+                        <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);"></button>
+                        <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);"></button>
+                        <button class="theme-btn" data-theme="crimson" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);"></button>
+                        <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);"></button>
                     </div>
                 </div>
 
@@ -89,11 +91,9 @@
                         <button class="font-btn active" data-font="segoe">Segoe UI</button>
                         <button class="font-btn" data-font="inter">Inter</button>
                         <button class="font-btn" data-font="roboto">Roboto</button>
-                        <button class="font-btn" data-font="aptos">Aptos</button>
                         <button class="font-btn" data-font="lato">Lato</button>
                         <button class="font-btn" data-font="outfit">Outfit</button>
                         <button class="font-btn" data-font="quicksand">Quicksand</button>
-                        <button class="font-btn" data-font="helvetica">Helvetica</button>
                     </div>
                 </div>
 
@@ -105,23 +105,10 @@
                         <button class="unit-btn" data-unit="K">K</button>
                     </div>
                 </div>
-
-                <div class="setting-group">
-                    <h4 id="labelLang">Languages</h4>
-                    <div class="lang-options grid-langs">
-                        <button class="lang-btn active" data-lang="en">English</button>
-                        <button class="lang-btn" data-lang="zh">中文</button>
-                        <button class="lang-btn" data-lang="vi">Tiếng Việt</button>
-                        <button class="lang-btn" data-lang="fr">Français</button>
-                        <button class="lang-btn" data-lang="de">Deutsch</button>
-                        <button class="lang-btn" data-lang="ru">Русский</button>
-                        <button class="lang-btn" data-lang="ja">日本語</button>
-                        <button class="lang-btn" data-lang="ko">한국어</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
+
     <div id="historyModal" class="modal-overlay hidden">
         <div class="modal-card">
             <div class="modal-header">
@@ -146,6 +133,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=18"></script>
+    <script src="script.js"></script>
 </body>
 </html>
