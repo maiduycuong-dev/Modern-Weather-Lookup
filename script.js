@@ -24,7 +24,8 @@ const calTodayBtn = document.getElementById('calTodayBtn');
 const calWeekdaysContainer = document.getElementById('calWeekdaysContainer');
 
 const hourSelectorBox = document.getElementById('hourSelectorBox');
-const hourSelect = document.getElementById('hourSelect');
+const hourGrid = document.getElementById('hourGrid');
+const selectedHourDisplay = document.getElementById('selectedHourDisplay');
 const labelHourSelect = document.getElementById('labelHourSelect');
 
 const cardTitle = document.getElementById('cardTitle');
@@ -54,6 +55,7 @@ let currentUnit = 'C';
 let currentLang = 'en';
 let lastWeatherCode = null;
 let selectedArchiveDate = new Date().toISOString().split('T')[0];
+let selectedHourValue = new Date().getHours();
 
 let viewYear = new Date().getFullYear();
 let viewMonth = new Date().getMonth();
@@ -78,7 +80,7 @@ const i18n = {
         font: "Fonts Theme",
         unit: "Temperature Unit",
         lang: "Languages",
-        historyTitle: "Select Past Date",
+        historyTitle: "Select Date",
         today: "Today",
         selectHour: "Select Hour:",
         weekdays: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
@@ -98,7 +100,7 @@ const i18n = {
         font: "字体主题",
         unit: "温度单位",
         lang: "语言",
-        historyTitle: "选择过去日期",
+        historyTitle: "选择日期",
         today: "今天",
         selectHour: "选择时间:",
         weekdays: ["一", "二", "三", "四", "五", "六", "日"],
@@ -118,7 +120,7 @@ const i18n = {
         font: "Phông chữ",
         unit: "Đơn vị nhiệt độ",
         lang: "Ngôn ngữ",
-        historyTitle: "Chọn Ngày Quá Khứ",
+        historyTitle: "Chọn Ngày",
         today: "Hôm nay",
         selectHour: "Chọn giờ:",
         weekdays: ["Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy", "CN"],
@@ -138,7 +140,7 @@ const i18n = {
         font: "Police",
         unit: "Unité de température",
         lang: "Langues",
-        historyTitle: "Sélectionner une date",
+        historyTitle: "Sélectionner la date",
         today: "Aujourd'hui",
         selectHour: "Sélectionner l'heure:",
         weekdays: ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"],
@@ -198,7 +200,7 @@ const i18n = {
         font: "フォントテーマ",
         unit: "温度単位",
         lang: "言語",
-        historyTitle: "過去の日付を選択",
+        historyTitle: "日付を選択",
         today: "今日",
         selectHour: "時間を選択:",
         weekdays: ["月", "火", "水", "木", "金", "土", "日"],
@@ -218,7 +220,7 @@ const i18n = {
         font: "글꼴 테마",
         unit: "온도 단위",
         lang: "언어",
-        historyTitle: "과거 날짜 선택)",
+        historyTitle: "날씨 날짜 선택",
         today: "오늘",
         selectHour: "시간 선택:",
         weekdays: ["월", "화", "수", "목", "금", "토", "일"],
@@ -226,16 +228,33 @@ const i18n = {
     }
 };
 
-function initHourDropdown() {
-    hourSelect.innerHTML = '';
+function initHourGrid() {
+    hourGrid.innerHTML = '';
     for (let i = 0; i < 24; i++) {
-        const opt = document.createElement('option');
+        const cell = document.createElement('div');
         const hourStr = String(i).padStart(2, '0') + ':00';
-        opt.value = i;
-        opt.innerText = hourStr;
-        hourSelect.appendChild(opt);
+        cell.classList.add('hour-cell');
+        cell.innerText = hourStr;
+        cell.setAttribute('data-hour', i);
+        
+        if (i === selectedHourValue) {
+            cell.classList.add('active');
+        }
+        
+        cell.addEventListener('click', () => {
+            selectedHourValue = i;
+            selectedHourDisplay.innerText = hourStr;
+            document.querySelectorAll('.hour-cell').forEach(c => c.classList.remove('active'));
+            cell.classList.add('active');
+            
+            if (cityInput.value.trim() !== '' && isArchiveMode) {
+                getWeather(cityInput.value.trim(), selectedArchiveDate, selectedHourValue);
+            }
+        });
+        
+        hourGrid.appendChild(cell);
     }
-    hourSelect.value = new Date().getHours();
+    selectedHourDisplay.innerText = String(selectedHourValue).padStart(2, '0') + ':00';
 }
 
 function initCalendar() {
@@ -305,7 +324,7 @@ function renderCalendar() {
                     } else {
                         hourSelectorBox.classList.add('hidden');
                     }
-                    getWeather(cityInput.value.trim(), selectedArchiveDate, parseInt(hourSelect.value));
+                    getWeather(cityInput.value.trim(), selectedArchiveDate, selectedHourValue);
                 }
             });
         }
@@ -346,12 +365,6 @@ calTodayBtn.addEventListener('click', () => {
     hourSelectorBox.classList.add('hidden');
     if (cityInput.value.trim() !== '') {
         getWeather(cityInput.value.trim(), selectedArchiveDate, 0);
-    }
-});
-
-hourSelect.addEventListener('change', () => {
-    if (cityInput.value.trim() !== '' && isArchiveMode) {
-        getWeather(cityInput.value.trim(), selectedArchiveDate, parseInt(hourSelect.value));
     }
 });
 
@@ -411,7 +424,7 @@ langBtns.forEach(btn => {
 
 window.addEventListener('DOMContentLoaded', () => {
     initCalendar();
-    initHourDropdown();
+    initHourGrid();
     
     const savedTheme = localStorage.getItem('selectedTheme') || 'default';
     document.body.className = '';
@@ -483,7 +496,7 @@ searchBtn.addEventListener('click', () => {
     isArchiveMode = (selectedArchiveDate !== new Date().toISOString().split('T')[0]);
     if (isArchiveMode) hourSelectorBox.classList.remove('hidden');
     else hourSelectorBox.classList.add('hidden');
-    getWeather(city, selectedArchiveDate, parseInt(hourSelect.value));
+    getWeather(city, selectedArchiveDate, selectedHourValue);
 });
 
 cityInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') searchBtn.click(); });
@@ -517,7 +530,7 @@ async function getWeather(city, targetDate, selectedHour) {
         currentWeatherData = await weatherResponse.json();
 
         if (targetDate && targetDate !== todayStr) {
-            const idx = selectedHour || 12;
+            const idx = selectedHour !== undefined ? selectedHour : 12;
             currentTempC = currentWeatherData.hourly.temperature_2m[idx];
             humidity.innerText = currentWeatherData.hourly.relative_humidity_2m[idx];
             wind.innerText = currentWeatherData.hourly.wind_speed_10m[idx];
