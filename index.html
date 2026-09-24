@@ -8,8 +8,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&family=Lato:wght@400;700&family=Outfit:wght@400;500;600&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=17">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&family=Lato:wght@400;700&family=Outfit:wght@400;500;600&family=Quicksand:wght@400;500;700&family=Montserrat:wght@400;500;600&family=Poppins:wght@400;500;600&family=Pacifico&family=Great+Vibes&family=Nunito:wght@400;600;700&family=Oswald:wght@400;500;700&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=23">
 </head>
 <body class="theme-default">
 
@@ -28,20 +28,40 @@
                     <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);" title="Sunset"></button>
                     <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);" title="Emerald"></button>
                     <button class="theme-btn" data-theme="crimson" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);" title="Crimson Red"></button>
-                    <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);" title="Dark"></button>
+                    <button class="theme-btn" data-theme="purple" style="background: linear-gradient(135deg, #7F00FF, #E100FF);" title="Purple Dream"></button>
+                    <button class="theme-btn" data-theme="sunny" style="background: linear-gradient(135deg, #f6d365, #fda085);" title="Sunny Yellow"></button>
+                    <button class="theme-btn" data-theme="silver" style="background: linear-gradient(135deg, #bdc3c7, #2c3e50);" title="Silver Gray"></button>
+                    <button class="theme-btn" data-theme="dark" style="background: #000000; border-color: #333;" title="Pitch Black"></button>
                 </div>
             </div>
 
             <div class="setting-group" style="margin-top: 12px;">
-                <h4 id="labelGlass">Glass Effect</h4>
+                <h4 id="labelStyle">User Interface Style</h4>
+                <div class="style-options">
+                    <button class="style-btn active" data-style="glass">Glassmorphism</button>
+                    <button class="style-btn" data-style="mica">Mica</button>
+                    <button class="style-btn" data-style="material">Material</button>
+                    <button class="style-btn" data-style="classic">Classic</button>
+                </div>
+            </div>
+
+            <div class="setting-group" style="margin-top: 12px;">
+                <h4 id="labelGlass">Interface Level</h4>
                 <div class="glass-slider-box">
                     <input type="range" id="glassSlider" min="10" max="60" value="30" step="5">
                 </div>
             </div>
 
             <div class="setting-group" style="margin-top: 12px;">
+                <h4 id="labelCardSize">Card Size</h4>
+                <div class="glass-slider-box">
+                    <input type="range" id="sizeSlider" min="360" max="560" value="460" step="20">
+                </div>
+            </div>
+
+            <div class="setting-group" style="margin-top: 12px;">
                 <h4 id="labelFont">Fonts Theme</h4>
-                <div class="font-options">
+                <div class="font-options grid-fonts">
                     <button class="font-btn active" data-font="segoe">Segoe UI</button>
                     <button class="font-btn" data-font="inter">Inter</button>
                     <button class="font-btn" data-font="roboto">Roboto</button>
@@ -49,6 +69,12 @@
                     <button class="font-btn" data-font="lato">Lato</button>
                     <button class="font-btn" data-font="outfit">Outfit</button>
                     <button class="font-btn" data-font="quicksand">Quicksand</button>
+                    <button class="font-btn" data-font="montserrat">Montserrat</button>
+                    <button class="font-btn" data-font="poppins">Poppins</button>
+                    <button class="font-btn" data-font="nunito">Nunito</button>
+                    <button class="font-btn" data-font="oswald">Oswald</button>
+                    <button class="font-btn" data-font="pacifico">Pacifico</button>
+                    <button class="font-btn" data-font="greatvibes">Great Vibes</button>
                     <button class="font-btn" data-font="helvetica">Helvetica</button>
                 </div>
             </div>
@@ -58,6 +84,8 @@
                 <div class="unit-options">
                     <button class="unit-btn active" data-unit="C">°C</button>
                     <button class="unit-btn" data-unit="F">°F</button>
+                    <button class="unit-btn" data-unit="K">K</button>
+                    <button class="unit-btn" data-unit="R">°R</button>
                 </div>
             </div>
 
@@ -67,6 +95,16 @@
                     <button class="lang-btn active" data-lang="en">English</button>
                     <button class="lang-btn" data-lang="zh">中文</button>
                     <button class="lang-btn" data-lang="vi">Tiếng Việt</button>
+                    <button class="lang-btn" data-lang="th">ไทย</button>
+                    <button class="lang-btn" data-lang="lo">ລາວ</button>
+                    <button class="lang-btn" data-lang="hi">हिन्दी</button>
+                    <button class="lang-btn" data-lang="pt-br">Brasil</button>
+                    <button class="lang-btn" data-lang="es">Español</button>
+                    <button class="lang-btn" data-lang="pt">Português</button>
+                    <button class="lang-btn" data-lang="nl-be">België</button>
+                    <button class="lang-btn" data-lang="nl">Nederland</button>
+                    <button class="lang-btn" data-lang="da">Dansk</button>
+                    <button class="lang-btn" data-lang="fr-ch">Suisse</button>
                     <button class="lang-btn" data-lang="fr">Français</button>
                     <button class="lang-btn" data-lang="de">Deutsch</button>
                     <button class="lang-btn" data-lang="ru">Русский</button>
@@ -97,7 +135,7 @@
         <div id="errorMsg" class="error hidden">Error!</div>
 
         <div id="weatherResult" class="hidden">
-            <div id="cityName" style="font-size: 20px; font-weight: 600; color: #111; margin-bottom: 5px;"></div>
+            <div id="cityName" style="font-size: 20px; font-weight: 600; margin-bottom: 5px;"></div>
             <span id="localTime" class="local-time"></span>
             
             <div class="temp-box">
@@ -138,6 +176,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=17"></script>
+    <script src="script.js?v=23"></script>
 </body>
 </html>
