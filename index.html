@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Checking Now</title>
+    <title>Modern Weather Lookup</title>
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&family=Lato:wght@400;700&family=Outfit:wght@400;500;600&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=17">
+    <link rel="stylesheet" href="style.css?v=18">
 </head>
 <body class="theme-default">
 
@@ -17,63 +17,6 @@
         <div class="header-container">
             <h2 id="cardTitle">Check the Weather</h2>
             <button id="settingsBtn" title="Settings">⚙️</button>
-        </div>
-
-        <div id="settingsPanel" class="settings-panel hidden">
-            <div class="setting-group">
-                <h4 id="labelTheme">Background Theme</h4>
-                <div class="theme-options">
-                    <button class="theme-btn active" data-theme="default" style="background: rgba(255, 255, 255, 0.95);" title="Clean White"></button>
-                    <button class="theme-btn" data-theme="blue" style="background: linear-gradient(135deg, #00c6ff, #0072ff);" title="Ocean Blue"></button>
-                    <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);" title="Sunset"></button>
-                    <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);" title="Emerald"></button>
-                    <button class="theme-btn" data-theme="crimson" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);" title="Crimson Red"></button>
-                    <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);" title="Dark"></button>
-                </div>
-            </div>
-
-            <div class="setting-group" style="margin-top: 12px;">
-                <h4 id="labelGlass">Glass Effect</h4>
-                <div class="glass-slider-box">
-                    <input type="range" id="glassSlider" min="10" max="60" value="30" step="5">
-                </div>
-            </div>
-
-            <div class="setting-group" style="margin-top: 12px;">
-                <h4 id="labelFont">Fonts Theme</h4>
-                <div class="font-options">
-                    <button class="font-btn active" data-font="segoe">Segoe UI</button>
-                    <button class="font-btn" data-font="inter">Inter</button>
-                    <button class="font-btn" data-font="roboto">Roboto</button>
-                    <button class="font-btn" data-font="aptos">Aptos</button>
-                    <button class="font-btn" data-font="lato">Lato</button>
-                    <button class="font-btn" data-font="outfit">Outfit</button>
-                    <button class="font-btn" data-font="quicksand">Quicksand</button>
-                    <button class="font-btn" data-font="helvetica">Helvetica</button>
-                </div>
-            </div>
-            <div class="setting-group" style="margin-top: 12px;">
-                <h4 id="labelUnit">Temperature Unit</h4>
-                <div class="unit-options">
-                    <button class="unit-btn active" data-unit="C">°C</button>
-                    <button class="unit-btn" data-unit="F">°F</button>
-                    <button class="unit-btn" data-unit="K">K</button>
-                </div>
-            </div>
-
-            <div class="setting-group" style="margin-top: 12px;">
-                <h4 id="labelLang">Languages</h4>
-                <div class="lang-options grid-langs">
-                    <button class="lang-btn active" data-lang="en">English</button>
-                    <button class="lang-btn" data-lang="zh">中文</button>
-                    <button class="lang-btn" data-lang="vi">Tiếng Việt</button>
-                    <button class="lang-btn" data-lang="fr">Français</button>
-                    <button class="lang-btn" data-lang="de">Deutsch</button>
-                    <button class="lang-btn" data-lang="ru">Русский</button>
-                    <button class="lang-btn" data-lang="ja">日本語</button>
-                    <button class="lang-btn" data-lang="ko">한국어</button>
-                </div>
-            </div>
         </div>
 
         <div class="search-box">
@@ -113,7 +56,72 @@
             </div>
         </div>
     </div>
+    <div id="settingsModal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="labelSettingsTitle">Settings</h3>
+                <button class="close-modal-btn" id="closeSettingsBtn">✕</button>
+            </div>
+            
+            <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
+                <div class="setting-group" style="margin-bottom: 15px;">
+                    <h4 id="labelTheme">Background Theme</h4>
+                    <div class="theme-options">
+                        <button class="theme-btn active" data-theme="default" style="background: rgba(255, 255, 255, 0.95);" title="Clean White"></button>
+                        <button class="theme-btn" data-theme="blue" style="background: linear-gradient(135deg, #00c6ff, #0072ff);" title="Ocean Blue"></button>
+                        <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);" title="Sunset"></button>
+                        <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);" title="Emerald"></button>
+                        <button class="theme-btn" data-theme="crimson" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);" title="Crimson Red"></button>
+                        <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #232526, #414345);" title="Dark"></button>
+                    </div>
+                </div>
 
+                <div class="setting-group" style="margin-bottom: 15px;">
+                    <h4 id="labelGlass">Glass Effect</h4>
+                    <div class="glass-slider-box">
+                        <input type="range" id="glassSlider" min="10" max="60" value="30" step="5">
+                    </div>
+                </div>
+
+                <div class="setting-group" style="margin-bottom: 15px;">
+                    <h4 id="labelFont">Fonts Theme</h4>
+                    <div class="font-options">
+                        <button class="font-btn active" data-font="segoe">Segoe UI</button>
+                        <button class="font-btn" data-font="inter">Inter</button>
+                        <button class="font-btn" data-font="roboto">Roboto</button>
+                        <button class="font-btn" data-font="aptos">Aptos</button>
+                        <button class="font-btn" data-font="lato">Lato</button>
+                        <button class="font-btn" data-font="outfit">Outfit</button>
+                        <button class="font-btn" data-font="quicksand">Quicksand</button>
+                        <button class="font-btn" data-font="helvetica">Helvetica</button>
+                    </div>
+                </div>
+
+                <div class="setting-group" style="margin-bottom: 15px;">
+                    <h4 id="labelUnit">Temperature Unit</h4>
+                    <div class="unit-options">
+                        <button class="unit-btn active" data-unit="C">°C</button>
+                        <button class="unit-btn" data-unit="F">°F</button>
+                        <button class="unit-btn" data-unit="K">K</button>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <h4 id="labelLang">Languages</h4>
+                    <div class="lang-options grid-langs">
+                        <button class="lang-btn active" data-lang="en">English</button>
+                        <button class="lang-btn" data-lang="zh">中文</button>
+                        <button class="lang-btn" data-lang="vi">Tiếng Việt</button>
+                        <button class="lang-btn" data-lang="fr">Français</button>
+                        <button class="lang-btn" data-lang="de">Deutsch</button>
+                        <button class="lang-btn" data-lang="ru">Русский</button>
+                        <button class="lang-btn" data-lang="ja">日本語</button>
+                        <button class="lang-btn" data-lang="ko">한국어</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="historyModal" class="modal-overlay hidden">
         <div class="modal-card">
             <div class="modal-header">
@@ -138,6 +146,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=17"></script>
+    <script src="script.js?v=18"></script>
 </body>
 </html>
