@@ -3,105 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Independent Weather Widgets</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&family=Lato:wght@400;700&family=Outfit:wght@400;500;600&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Weather Checking Now</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="theme-default">
-
-    <div class="widgets-workspace">
-        <div class="widget-box" id="searchWidget">
-            <div class="widget-header"><h3>Search Widget</h3></div>
-            <div class="search-box">
-                <input type="text" id="cityInput" placeholder="Enter city name...">
-                <button id="searchBtn">Search</button>
+<body>
+    <div class="workspace">
+        <div class="widget" id="inputWidget">
+            <h3>1. Widget Điền Chữ</h3>
+            <div class="input-group">
+                <input type="text" id="cityInput" placeholder="Nhập tên thành phố...">
+                <button id="searchBtn">Tìm</button>
             </div>
-            <div id="loadingMsg" class="loading hidden">Loading...</div>
-            <div id="errorMsg" class="error hidden">Error!</div>
+            <div id="loadingMsg" class="msg hidden">Đang tải...</div>
+            <div id="errorMsg" class="msg error hidden"></div>
         </div>
 
-        <div class="widget-box" id="displayWidget">
-            <div class="widget-header"><h3>Weather Info</h3></div>
-            <div id="cityName" class="city-name">No city selected</div>
-            <span id="localTime" class="local-time">--</span>
-            <div class="temp-box">
-                <span id="temp">--</span><span class="unit" id="unitSymbol">°C</span>
-            </div>
-            <div id="description">--</div>
-            <div class="details">
-                <div>Humidity: <span id="humidity">--</span>%</div>
-                <div>Wind: <span id="wind">--</span> m/s</div>
-                <div>UV: <span id="uvIndex">--</span></div>
-            </div>
-        </div>
-
-        <div class="widget-box" id="historyWidget">
-            <div class="widget-header"><h3>Date & Time Widget</h3></div>
-            <div class="history-trigger-box">
-                <button id="historyModalBtn" class="history-trigger-btn">📅 Select Date: Today</button>
-            </div>
-            <div id="hourSelectorBox" class="hour-selector-box hidden">
-                <div class="hour-selector-header">
-                    <span>Select Hour:</span>
-                    <span id="selectedHourDisplay" class="selected-hour-badge">12:00</span>
+        <div class="widget" id="historyWidget">
+            <h3>2. Widget Chọn Lịch Sử & Giờ</h3>
+            <button id="historyModalBtn" class="btn-full">📅 Chọn Ngày: Hôm nay</button>
+            <div id="hourSelectorBox" class="hour-box hidden">
+                <div class="hour-header">
+                    <span>Chọn Giờ:</span>
+                    <span id="selectedHourDisplay" class="badge">12:00</span>
                 </div>
                 <div class="hour-grid" id="hourGrid"></div>
             </div>
         </div>
 
-        <div class="widget-box" id="settingsWidget">
-            <div class="widget-header"><h3>Settings Widget</h3></div>
-            <div class="setting-group">
-                <h4>Theme</h4>
-                <div class="theme-options">
-                    <button class="theme-btn active" data-theme="default" style="background: rgba(255, 255, 255, 0.95);"></button>
-                    <button class="theme-btn" data-theme="blue" style="background: linear-gradient(135deg, #00c6ff, #0072ff);"></button>
-                    <button class="theme-btn" data-theme="sunset" style="background: linear-gradient(135deg, #f857a6, #ff5858);"></button>
-                    <button class="theme-btn" data-theme="emerald" style="background: linear-gradient(135deg, #11998e, #38ef7d);"></button>
-                </div>
+        <div class="widget" id="tempWidget">
+            <h3>3. Widget Nhiệt Độ</h3>
+            <div id="cityName" class="city-title">Chưa chọn thành phố</div>
+            <div id="localTime" class="time-tag">--</div>
+            <div class="temp-display">
+                <span id="temp">--</span><span id="unitSymbol">°C</span>
             </div>
-            <div class="setting-group">
-                <h4>Glass Blur</h4>
-                <input type="range" id="glassSlider" min="10" max="60" value="30" step="5">
+            <div id="description">--</div>
+            <div class="unit-row">
+                <button class="unit-btn active" data-unit="C">°C</button>
+                <button class="unit-btn" data-unit="F">°F</button>
+                <button class="unit-btn" data-unit="K">K</button>
             </div>
-            <div class="setting-group">
-                <h4>Font</h4>
-                <div class="font-options">
-                    <button class="font-btn active" data-font="segoe">Segoe</button>
-                    <button class="font-btn" data-font="inter">Inter</button>
-                    <button class="font-btn" data-font="roboto">Roboto</button>
-                </div>
+        </div>
+
+        <div class="widget" id="detailsWidget">
+            <h3>4. Widget Thông Số</h3>
+            <div class="stat-card">
+                <span>Độ ẩm</span>
+                <strong id="humidity">--%</strong>
             </div>
-            <div class="setting-group">
-                <h4>Unit</h4>
-                <div class="unit-options">
-                    <button class="unit-btn active" data-unit="C">°C</button>
-                    <button class="unit-btn" data-unit="F">°F</button>
-                    <button class="unit-btn" data-unit="K">K</button>
-                </div>
+            <div class="stat-card">
+                <span>Tốc độ gió</span>
+                <strong id="wind">-- m/s</strong>
+            </div>
+            <div class="stat-card">
+                <span>Chỉ số UV</span>
+                <strong id="uvIndex">--</strong>
             </div>
         </div>
     </div>
 
-    <div id="historyModal" class="modal-overlay hidden">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3>Select Date</h3>
-                <button class="close-modal-btn" id="closeHistoryBtn">✕</button>
+    <div id="historyModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-top">
+                <h4>Chọn Ngày</h4>
+                <button id="closeHistoryBtn">✕</button>
             </div>
-            <div class="modal-body">
-                <div class="custom-calendar">
-                    <div class="cal-nav">
-                        <button id="prevMonthBtn">‹</button>
-                        <span id="calMonthYear">September 2026</span>
-                        <button id="nextMonthBtn">›</button>
-                    </div>
-                    <div class="cal-weekdays" id="calWeekdaysContainer"></div>
-                    <div class="cal-grid" id="calGrid"></div>
-                    <div class="cal-footer">
-                        <button id="calTodayBtn">Today</button>
-                    </div>
+            <div class="calendar">
+                <div class="cal-nav">
+                    <button id="prevMonthBtn">‹</button>
+                    <span id="calMonthYear"></span>
+                    <button id="nextMonthBtn">›</button>
                 </div>
+                <div class="cal-weekdays">
+                    <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span>
+                </div>
+                <div class="cal-grid" id="calGrid"></div>
+                <button id="calTodayBtn" class="btn-full" style="margin-top: 10px;">Hôm nay</button>
             </div>
         </div>
     </div>
