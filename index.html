@@ -3,81 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Material You Weather</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Weather Checking Now</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main class="m3-workspace">
-        <section class="m3-card search-card">
-            <div class="m3-textfield">
-                <input type="text" id="cityInput" placeholder="Nhập tên thành phố...">
-                <button id="searchBtn" class="m3-button">Tìm kiếm</button>
+    <main class="pixel-app">
+        <header class="search-dashboard">
+            <div class="search-bar">
+                <input type="text" id="cityInput" placeholder="Tìm kiếm thành phố...">
+                <button id="settingsBtn" class="icon-button">⚙</button>
             </div>
-            <div id="loadingMsg" class="m3-status hidden">Đang tải...</div>
-            <div id="errorMsg" class="m3-status error hidden"></div>
-        </section>
+            <div id="loadingMsg" class="status-text hidden">Đang tải dữ liệu...</div>
+            <div id="errorMsg" class="status-text error hidden"></div>
+        </header>
 
-        <section class="m3-card history-card">
-            <button id="historyModalBtn" class="m3-button tonal">📅 Chọn ngày & giờ</button>
-            <div id="hourSelectorBox" class="hour-container hidden">
-                <div class="hour-header">
-                    <span>Chọn giờ:</span>
-                    <span id="selectedHourDisplay" class="badge">12:00</span>
+        <section id="weatherDashboard" class="weather-dashboard hidden">
+            <div class="hero-card">
+                <div class="hero-info">
+                    <h1 id="cityName" class="city-title">--</h1>
+                    <span id="localTime" class="time-subtitle">--</span>
                 </div>
-                <div class="hour-grid" id="hourGrid"></div>
+                <div class="hero-temp">
+                    <span id="temp">--</span><span id="unitSymbol">°C</span>
+                </div>
+                <div id="description" class="condition-text">--</div>
             </div>
-        </section>
 
-        <section class="m3-card temp-card">
-            <div class="temp-header">
-                <span id="cityName" class="city-label">Chưa chọn thành phố</span>
-                <span id="localTime" class="time-label">--</span>
-            </div>
-            <div class="temp-body">
-                <span id="temp">--</span><span id="unitSymbol">°C</span>
-            </div>
-            <div id="description" class="desc-label">--</div>
-            <div class="unit-row">
-                <button class="m3-chip active" data-unit="C">°C</button>
-                <button class="m3-chip" data-unit="F">°F</button>
-                <button class="m3-chip" data-unit="K">K</button>
-            </div>
-        </section>
-
-        <section class="m3-card details-card">
-            <div class="metric-item">
-                <span class="metric-title">Độ ẩm</span>
-                <strong id="humidity" class="metric-value">--%</strong>
-            </div>
-            <div class="metric-item">
-                <span class="metric-title">Tốc độ gió</span>
-                <strong id="wind" class="metric-value">-- m/s</strong>
-            </div>
-            <div class="metric-item">
-                <span class="metric-title">Chỉ số UV</span>
-                <strong id="uvIndex" class="metric-value">--</strong>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-label">Độ ẩm</span>
+                    <strong id="humidity" class="metric-val">--%</strong>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Gió</span>
+                    <strong id="wind" class="metric-val">-- m/s</strong>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Chỉ số UV</span>
+                    <strong id="uvIndex" class="metric-val">--</strong>
+                </div>
             </div>
         </section>
     </main>
 
-    <div id="historyModal" class="m3-modal hidden">
-        <div class="m3-dialog">
-            <div class="dialog-header">
-                <h3>Chọn ngày lịch sử</h3>
-                <button id="closeHistoryBtn" class="icon-btn">✕</button>
+    <div id="settingsModal" class="modal-backdrop hidden">
+        <div class="modal-sheet">
+            <div class="sheet-header">
+                <h3>Cài đặt & Thời gian</h3>
+                <button id="closeSettingsBtn" class="icon-button">✕</button>
             </div>
-            <div class="calendar-container">
+            <div class="sheet-body">
+                <div class="setting-group">
+                    <label>Đơn vị nhiệt độ</label>
+                    <div class="unit-chips">
+                        <button class="chip active" data-unit="C">°C</button>
+                        <button class="chip" data-unit="F">°F</button>
+                        <button class="chip" data-unit="K">K</button>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <label>Xem lại ngày/giờ lịch sử</label>
+                    <button id="historyModalBtn" class="tonal-button">📅 Chọn ngày lịch sử</button>
+                    <div id="hourSelectorBox" class="hour-container hidden">
+                        <div class="hour-top">
+                            <span>Giờ:</span>
+                            <span id="selectedHourDisplay" class="badge">12:00</span>
+                        </div>
+                        <div class="hour-grid" id="hourGrid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="historyModal" class="modal-backdrop hidden">
+        <div class="modal-sheet calendar-sheet">
+            <div class="sheet-header">
+                <h3>Chọn ngày</h3>
+                <button id="closeHistoryBtn" class="icon-button">✕</button>
+            </div>
+            <div class="calendar-wrap">
                 <div class="cal-nav">
-                    <button id="prevMonthBtn" class="icon-btn">‹</button>
+                    <button id="prevMonthBtn" class="icon-button">‹</button>
                     <span id="calMonthYear"></span>
-                    <button id="nextMonthBtn" class="icon-btn">›</button>
+                    <button id="nextMonthBtn" class="icon-button">›</button>
                 </div>
                 <div class="cal-weekdays">
                     <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span>
                 </div>
                 <div class="cal-grid" id="calGrid"></div>
-                <button id="calTodayBtn" class="m3-button tonal full-width">Hôm nay</button>
+                <button id="calTodayBtn" class="tonal-button" style="margin-top: 16px;">Về hiện tại</button>
             </div>
         </div>
     </div>
