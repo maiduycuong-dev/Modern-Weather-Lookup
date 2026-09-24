@@ -7,7 +7,7 @@ let currentWeatherData = null;
 document.addEventListener('DOMContentLoaded', () => {
     initEvents();
     initCalendar();
-    updateDateTimeDisplay();
+    updateTime();
 });
 
 function initEvents() {
@@ -28,29 +28,29 @@ function initEvents() {
     document.getElementById('closeHistoryBtn').addEventListener('click', () => modal.classList.add('hidden'));
     modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
 
-    document.querySelectorAll('.unit-btn').forEach(btn => {
+    document.querySelectorAll('.m3-chip').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.m3-chip').forEach(b => b.classList.remove('active'));
             e.target.classList.add('active');
             currentUnit = e.target.dataset.unit;
             document.getElementById('unitSymbol').innerText = currentUnit === 'K' ? 'K' : `°${currentUnit}`;
-            if (currentWeatherData) displayWeatherData(currentWeatherData);
+            if (currentWeatherData) renderWeather(currentWeatherData);
         });
     });
 }
 
 async function fetchWeather(city) {
     currentCity = city;
-    showLoading(true);
-    hideError();
+    toggleLoading(true);
+    clearError();
 
     try {
         const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`);
         const geoData = await geoRes.json();
 
         if (!geoData.results || geoData.results.length === 0) {
-            showError("Không tìm thấy thành phố!");
-            showLoading(false);
+            showError("Không tìm thấy thành phố");
+            toggleLoading(false);
             return;
         }
 
@@ -67,16 +67,15 @@ async function fetchWeather(city) {
         const data = await res.json();
 
         currentWeatherData = data;
-        displayWeatherData(data);
-        showLoading(false);
-
+        renderWeather(data);
+        toggleLoading(false);
     } catch (err) {
-        showError("Lỗi kết nối dữ liệu!");
-        showLoading(false);
+        showError("Lỗi kết nối hệ thống");
+        toggleLoading(false);
     }
 }
 
-function displayWeatherData(data) {
+function renderWeather(data) {
     let temp, hum, wind;
 
     if (selectedDate && data.hourly) {
@@ -100,7 +99,7 @@ function displayWeatherData(data) {
     document.getElementById('uvIndex').innerText = "3.2";
 }
 
-function showLoading(isLoading) {
+function toggleLoading(isLoading) {
     const el = document.getElementById('loadingMsg');
     isLoading ? el.classList.remove('hidden') : el.classList.add('hidden');
 }
@@ -111,14 +110,14 @@ function showError(msg) {
     el.classList.remove('hidden');
 }
 
-function hideError() {
+function clearError() {
     document.getElementById('errorMsg').classList.add('hidden');
 }
 
-function updateDateTimeDisplay() {
+function updateTime() {
     const now = new Date();
-    document.getElementById('localTime').innerText = now.toLocaleDateString('vi-VN', { 
-        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+    document.getElementById('localTime').innerText = now.toLocaleDateString('vi-VN', {
+        weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric'
     });
 }
 
@@ -144,7 +143,7 @@ function initCalendar() {
             const cell = document.createElement('div');
             cell.className = 'cal-day';
             cell.innerText = d;
-            
+
             const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
 
             cell.addEventListener('click', () => {
@@ -174,7 +173,7 @@ function initCalendar() {
 
     document.getElementById('calTodayBtn').addEventListener('click', () => {
         selectedDate = null;
-        document.getElementById('historyModalBtn').innerText = `📅 Chọn Ngày: Hôm nay`;
+        document.getElementById('historyModalBtn').innerText = `📅 Chọn ngày & giờ`;
         document.getElementById('historyModal').classList.add('hidden');
         document.getElementById('hourSelectorBox').classList.add('hidden');
         if (currentCity) fetchWeather(currentCity);
@@ -198,7 +197,7 @@ function renderHours() {
             cell.classList.add('active');
             selectedHour = hourStr;
             document.getElementById('selectedHourDisplay').innerText = hourStr;
-            if (currentWeatherData) displayWeatherData(currentWeatherData);
+            if (currentWeatherData) renderWeather(currentWeatherData);
         });
 
         grid.appendChild(cell);

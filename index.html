@@ -1,85 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Checking Now</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Material You Weather</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="workspace">
-        <div class="widget" id="inputWidget">
-            <h3>1. Widget Điền Chữ</h3>
-            <div class="input-group">
+    <main class="m3-workspace">
+        <section class="m3-card search-card">
+            <div class="m3-textfield">
                 <input type="text" id="cityInput" placeholder="Nhập tên thành phố...">
-                <button id="searchBtn">Tìm</button>
+                <button id="searchBtn" class="m3-button">Tìm kiếm</button>
             </div>
-            <div id="loadingMsg" class="msg hidden">Đang tải...</div>
-            <div id="errorMsg" class="msg error hidden"></div>
-        </div>
+            <div id="loadingMsg" class="m3-status hidden">Đang tải...</div>
+            <div id="errorMsg" class="m3-status error hidden"></div>
+        </section>
 
-        <div class="widget" id="historyWidget">
-            <h3>2. Widget Chọn Lịch Sử & Giờ</h3>
-            <button id="historyModalBtn" class="btn-full">📅 Chọn Ngày: Hôm nay</button>
-            <div id="hourSelectorBox" class="hour-box hidden">
+        <section class="m3-card history-card">
+            <button id="historyModalBtn" class="m3-button tonal">📅 Chọn ngày & giờ</button>
+            <div id="hourSelectorBox" class="hour-container hidden">
                 <div class="hour-header">
-                    <span>Chọn Giờ:</span>
+                    <span>Chọn giờ:</span>
                     <span id="selectedHourDisplay" class="badge">12:00</span>
                 </div>
                 <div class="hour-grid" id="hourGrid"></div>
             </div>
-        </div>
+        </section>
 
-        <div class="widget" id="tempWidget">
-            <h3>3. Widget Nhiệt Độ</h3>
-            <div id="cityName" class="city-title">Chưa chọn thành phố</div>
-            <div id="localTime" class="time-tag">--</div>
-            <div class="temp-display">
+        <section class="m3-card temp-card">
+            <div class="temp-header">
+                <span id="cityName" class="city-label">Chưa chọn thành phố</span>
+                <span id="localTime" class="time-label">--</span>
+            </div>
+            <div class="temp-body">
                 <span id="temp">--</span><span id="unitSymbol">°C</span>
             </div>
-            <div id="description">--</div>
+            <div id="description" class="desc-label">--</div>
             <div class="unit-row">
-                <button class="unit-btn active" data-unit="C">°C</button>
-                <button class="unit-btn" data-unit="F">°F</button>
-                <button class="unit-btn" data-unit="K">K</button>
+                <button class="m3-chip active" data-unit="C">°C</button>
+                <button class="m3-chip" data-unit="F">°F</button>
+                <button class="m3-chip" data-unit="K">K</button>
             </div>
-        </div>
+        </section>
 
-        <div class="widget" id="detailsWidget">
-            <h3>4. Widget Thông Số</h3>
-            <div class="stat-card">
-                <span>Độ ẩm</span>
-                <strong id="humidity">--%</strong>
+        <section class="m3-card details-card">
+            <div class="metric-item">
+                <span class="metric-title">Độ ẩm</span>
+                <strong id="humidity" class="metric-value">--%</strong>
             </div>
-            <div class="stat-card">
-                <span>Tốc độ gió</span>
-                <strong id="wind">-- m/s</strong>
+            <div class="metric-item">
+                <span class="metric-title">Tốc độ gió</span>
+                <strong id="wind" class="metric-value">-- m/s</strong>
             </div>
-            <div class="stat-card">
-                <span>Chỉ số UV</span>
-                <strong id="uvIndex">--</strong>
+            <div class="metric-item">
+                <span class="metric-title">Chỉ số UV</span>
+                <strong id="uvIndex" class="metric-value">--</strong>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
-    <div id="historyModal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-top">
-                <h4>Chọn Ngày</h4>
-                <button id="closeHistoryBtn">✕</button>
+    <div id="historyModal" class="m3-modal hidden">
+        <div class="m3-dialog">
+            <div class="dialog-header">
+                <h3>Chọn ngày lịch sử</h3>
+                <button id="closeHistoryBtn" class="icon-btn">✕</button>
             </div>
-            <div class="calendar">
+            <div class="calendar-container">
                 <div class="cal-nav">
-                    <button id="prevMonthBtn">‹</button>
+                    <button id="prevMonthBtn" class="icon-btn">‹</button>
                     <span id="calMonthYear"></span>
-                    <button id="nextMonthBtn">›</button>
+                    <button id="nextMonthBtn" class="icon-btn">›</button>
                 </div>
                 <div class="cal-weekdays">
                     <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span>
                 </div>
                 <div class="cal-grid" id="calGrid"></div>
-                <button id="calTodayBtn" class="btn-full" style="margin-top: 10px;">Hôm nay</button>
+                <button id="calTodayBtn" class="m3-button tonal full-width">Hôm nay</button>
             </div>
         </div>
     </div>
