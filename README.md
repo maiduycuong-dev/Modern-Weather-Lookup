@@ -21,7 +21,8 @@ Allows users to search for cities and displays current weather information in a 
 - index.html: Application structure and User Interface (UI) layout.
 - style.css: UI styling, animations, gradients, card-based layout, settings panel, high customizability, a comfortable interface, and responsive design.
 - script.js: Core interaction logic, API calls, options for interface/fonts/measurement units, local time display functionality, etc.
-- favicon.png: Website icon (Source: Icons8.com).
+- favicon.png: Website icon (Source: Icons8.com)
+- settting.png: Setting Icon Source: Icons8.com)
 - LICENSE: MIT License for the project.
 
 4. Project Conclusion:
