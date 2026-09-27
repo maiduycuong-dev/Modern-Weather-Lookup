@@ -202,6 +202,50 @@ const i18n = {
         weekdays: ["सोम", "मंगल", "बुध", "गुरु", "शुक्र", "शनि", "रवि"],
         months: ["जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"]
     },
+    id: {
+        title: "Cek Cuaca",
+        searchPlaceholder: "Masukkan nama kota...",
+        searchBtn: "Cari",
+        loading: "Memuat data cuaca...",
+        error: "Kota tidak ditemukan atau kesalahan jaringan!",
+        humidity: "Kelembaban",
+        wind: "Angin",
+        uv: "Indeks UV",
+        theme: "Tema Latar Belakang",
+        style: "Gaya Antarmuka",
+        glass: "Tingkat Antarmuka",
+        cardSize: "Ukuran Kartu",
+        font: "Tema Font",
+        unit: "Satuan Suhu",
+        lang: "Bahasa",
+        historyTitle: "Pilih Tanggal",
+        today: "Hari Ini",
+        selectHour: "Pilih Jam:",
+        weekdays: ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"],
+        months: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
+    },
+    ar: {
+        title: "تحقق من الطقس",
+        searchPlaceholder: "أدخل اسم المدينة...",
+        searchBtn: "بحث",
+        loading: "جارٍ تحميل بيانات الطقس...",
+        error: "المدينة غير موجودة أو خطأ في الشبكة!",
+        humidity: "الرطوبة",
+        wind: "الرياح",
+        uv: "مؤشر الأشعة فوق البنفسجية",
+        theme: "خلفية السمة",
+        style: "نمط الواجهة",
+        glass: "مستوى الواجهة",
+        cardSize: "حجم البطاقة",
+        font: "سمة الخط",
+        unit: "وحدة الحرارة",
+        lang: "اللغات",
+        historyTitle: "اختر التاريخ",
+        today: "اليوم",
+        selectHour: "اختر الساعة:",
+        weekdays: ["اثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة", "سبت", "أحد"],
+        months: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"]
+    },
     "pt-br": {
         title: "Verificar o Clima",
         searchPlaceholder: "Digite o nome da cidade...",
@@ -476,22 +520,22 @@ function initHourGrid() {
         cell.classList.add('hour-cell');
         cell.innerText = hourStr;
         cell.setAttribute('data-hour', i);
-        
+
         if (i === selectedHourValue) {
             cell.classList.add('active');
         }
-        
+
         cell.addEventListener('click', () => {
             selectedHourValue = i;
             selectedHourDisplay.innerText = hourStr;
             document.querySelectorAll('.hour-cell').forEach(c => c.classList.remove('active'));
             cell.classList.add('active');
-            
+
             if (cityInput.value.trim() !== '' && isArchiveMode) {
                 getWeather(cityInput.value.trim(), selectedArchiveDate, selectedHourValue);
             }
         });
-        
+
         hourGrid.appendChild(cell);
     }
     selectedHourDisplay.innerText = String(selectedHourValue).padStart(2, '0') + ':00';
@@ -502,7 +546,7 @@ function initCalendar() {
     viewYear = today.getFullYear();
     viewMonth = today.getMonth();
     selectedArchiveDate = today.toISOString().split('T')[0];
-    historyModalBtn.innerText = `📅 ${selectedArchiveDate}`;
+    historyModalBtn.innerText = `${selectedArchiveDate}`;
     renderCalendar();
 }
 
@@ -510,7 +554,7 @@ function renderCalendar() {
     calGrid.innerHTML = '';
     const t = i18n[currentLang] || i18n.en;
 
-    calMonthYear.innerText = `${t.months[viewMonth]} ${viewYear}`;
+    calMonthYear.innerText = `\({t.months[viewMonth]}\){viewYear}`;
     calWeekdaysContainer.innerText = '';
     t.weekdays.forEach(day => {
         const span = document.createElement('span');
@@ -541,7 +585,7 @@ function renderCalendar() {
 
         const mStr = String(viewMonth + 1).padStart(2, '0');
         const dStr = String(d).padStart(2, '0');
-        const currentCellDateStr = `${viewYear}-${mStr}-${dStr}`;
+        const currentCellDateStr = `\({viewYear}-\){mStr}-${dStr}`;
         const cellDateObj = new Date(viewYear, viewMonth, d);
 
         if (cellDateObj > todayObj || cellDateObj < pastLimitObj) {
@@ -556,10 +600,10 @@ function renderCalendar() {
 
             dayCell.addEventListener('click', () => {
                 selectedArchiveDate = currentCellDateStr;
-                historyModalBtn.innerText = `📅 ${selectedArchiveDate}`;
+                historyModalBtn.innerText = `${selectedArchiveDate}`;
                 renderCalendar();
                 historyModal.classList.add('hidden');
-                
+
                 if (cityInput.value.trim() !== '') {
                     isArchiveMode = (selectedArchiveDate !== todayStr);
                     if (isArchiveMode) {
@@ -601,7 +645,7 @@ calTodayBtn.addEventListener('click', () => {
     viewYear = today.getFullYear();
     viewMonth = today.getMonth();
     selectedArchiveDate = today.toISOString().split('T')[0];
-    historyModalBtn.innerText = `📅 ${selectedArchiveDate}`;
+    historyModalBtn.innerText = `${selectedArchiveDate}`;
     renderCalendar();
     historyModal.classList.add('hidden');
     isArchiveMode = false;
@@ -684,13 +728,14 @@ langBtns.forEach(btn => {
 window.addEventListener('DOMContentLoaded', () => {
     initCalendar();
     initHourGrid();
-    
+
     const savedTheme = localStorage.getItem('selectedTheme') || 'default';
     document.body.className = '';
     if (savedTheme !== 'default') document.body.classList.add(`theme-${savedTheme}`);
     themeBtns.forEach(b => { if (b.getAttribute('data-theme') === savedTheme) b.classList.add('active'); else b.classList.remove('active'); });
 
-    const savedStyle = localStorage.getItem('selectedStyle') || 'glass';
+    let savedStyle = localStorage.getItem('selectedStyle') || 'glass';
+    if (savedStyle === 'neumorph') savedStyle = 'glass';
     applyUIStyle(savedStyle);
     styleBtns.forEach(b => { if (b.getAttribute('data-style') === savedStyle) b.classList.add('active'); else b.classList.remove('active'); });
 
@@ -718,13 +763,11 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function applyUIStyle(styleName) {
-    weatherCard.classList.remove('style-mica', 'style-material', 'style-classic');
+    weatherCard.classList.remove('style-mica', 'style-material', 'style-neumorph');
     if (styleName === 'mica') {
         weatherCard.classList.add('style-mica');
     } else if (styleName === 'material') {
         weatherCard.classList.add('style-material');
-    } else if (styleName === 'classic') {
-        weatherCard.classList.add('style-classic');
     }
 }
 
@@ -751,12 +794,14 @@ function applyFont(fontName) {
     else if (fontName === 'oswald') fontFamily = "'Oswald', sans-serif";
     else if (fontName === 'pacifico') fontFamily = "'Pacifico', cursive";
     else if (fontName === 'greatvibes') fontFamily = "'Great Vibes', cursive";
+    else if (fontName === 'dancingscript') fontFamily = "'Dancing Script', cursive";
+    else if (fontName === 'caveat') fontFamily = "'Caveat', cursive";
+    else if (fontName === 'satisfy') fontFamily = "'Satisfy', cursive";
+    else if (fontName === 'sacramento') fontFamily = "'Sacramento', cursive";
     else if (fontName === 'helvetica') fontFamily = "'Helvetica Neue', Helvetica, Arial, sans-serif";
-    
+
     document.documentElement.style.setProperty('--current-font', fontFamily);
-    if (!weatherCard.classList.contains('style-classic')) {
-        document.body.style.fontFamily = fontFamily;
-    }
+    document.body.style.fontFamily = fontFamily;
 }
 
 function updateLanguageUI() {
@@ -812,9 +857,9 @@ async function getWeather(city, targetDate, selectedHour) {
         let weatherUrl = '';
         const todayStr = new Date().toISOString().split('T')[0];
         if (targetDate && targetDate !== todayStr) {
-            weatherUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=${currentLat}&longitude=${currentLon}&start_date=${targetDate}&end_date=${targetDate}&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code,uv_index`;
+            weatherUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=\({currentLat}&longitude=\){currentLon}&start_date=\({targetDate}&end_date=\){targetDate}&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code,uv_index`;
         } else {
-            weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${currentLat}&longitude=${currentLon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code,uv_index`;
+            weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=\({currentLat}&longitude=\){currentLon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code,uv_index`;
         }
 
         const weatherResponse = await fetch(weatherUrl);
@@ -827,12 +872,12 @@ async function getWeather(city, targetDate, selectedHour) {
             wind.innerText = currentWeatherData.hourly.wind_speed_10m[idx] !== undefined ? currentWeatherData.hourly.wind_speed_10m[idx] : '--';
             uvIndex.innerText = currentWeatherData.hourly.uv_index && currentWeatherData.hourly.uv_index[idx] !== undefined ? currentWeatherData.hourly.uv_index[idx] : '0';
             lastWeatherCode = currentWeatherData.hourly.weather_code[idx];
-            localTime.innerText = `${targetDate} - ${String(idx).padStart(2, '0')}:00`;
+            localTime.innerText = `\({targetDate} -\){String(idx).padStart(2, '0')}:00`;
         } else {
             currentTempC = currentWeatherData.current.temperature_2m;
             humidity.innerText = currentWeatherData.current.relative_humidity_2m !== undefined ? currentWeatherData.current.relative_humidity_2m : '--';
             wind.innerText = currentWeatherData.current.wind_speed_10m !== undefined ? currentWeatherData.current.wind_speed_10m : '--';
-            uvIndex.innerText = currentWeatherData.current.uv_index !== undefined ? currentWeatherData.current.uv_index : '0'; 
+            uvIndex.innerText = currentWeatherData.current.uv_index !== undefined ? currentWeatherData.current.uv_index : '0';
             lastWeatherCode = currentWeatherData.current.weather_code;
             startLocalClock(currentCityTimezone);
         }
@@ -840,7 +885,7 @@ async function getWeather(city, targetDate, selectedHour) {
         cityName.innerText = displayName;
         updateTemperatureDisplay();
         description.innerText = getWeatherDescription(lastWeatherCode);
-        
+
         loadingMsg.classList.add('hidden');
         weatherResult.classList.remove('hidden');
 
@@ -854,13 +899,13 @@ async function getWeather(city, targetDate, selectedHour) {
 
 function updateTemperatureDisplay() {
     if (currentUnit === 'F') {
-        temp.innerText = Math.round((currentTempC * 9/5) + 32);
+        temp.innerText = Math.round((currentTempC * 9 / 5) + 32);
         unitSymbol.innerText = '°F';
     } else if (currentUnit === 'K') {
         temp.innerText = Math.round(currentTempC + 273.15);
         unitSymbol.innerText = 'K';
     } else if (currentUnit === 'R') {
-        temp.innerText = Math.round((currentTempC + 273.15) * 9/5);
+        temp.innerText = Math.round((currentTempC + 273.15) * 9 / 5);
         unitSymbol.innerText = '°R';
     } else {
         temp.innerText = Math.round(currentTempC);
@@ -885,7 +930,7 @@ function startLocalClock(timezone) {
                 if (p.type === 'month') mo = p.value;
                 if (p.type === 'year') y = p.value;
             }
-            localTime.innerText = `${h}:${m}:${s} - ${mo}/${d}/${y}`;
+            localTime.innerText = `\({h}:\){m}:\({s} -\){mo}/\({d}/\){y}`;
         } catch (e) {
             localTime.innerText = "Time Error";
         }
@@ -902,6 +947,8 @@ function getWeatherDescription(code) {
         th: { clear: "ท้องฟ้าแจ่มใส", cloudy: "มีเมฆมาก", foggy: "มีหมอก", rain: "ฝนตกเบาๆ", snow: "หิมะตก", storm: "พายุฝนฟ้าคะนอง", normal: "อากาศปกติ" },
         lo: { clear: "ທ້ອງຟ້າແຈ້ງ", cloudy: "ມີເມກບາງສ່ວນ", foggy: "ມີໝອກ", rain: "ຝົນຕົກອ່ອນໆ", snow: "ຫິມະຕົກ", storm: "ພາຍຸຝົນຟ້າคะນອງ", normal: "ອາກາດປົກກະຕິ" },
         hi: { clear: "साफ आसमान", cloudy: "बादल छाए हैं", foggy: "कोहरा", rain: " हल्की बारिश", snow: "बर्फबारी", storm: "तूफान", normal: "सामान्य मौसम" },
+        id: { clear: "Langit Cerah", cloudy: "Berawan", foggy: "Berkabut", rain: "Hujan Ringan", snow: "Bersalju", storm: "Badai Petir", normal: "Cuaca Normal" },
+        ar: { clear: "سماء صافية", cloudy: "غائم", foggy: "ضبابي", rain: "مطر خفيف", snow: "تساقط الثلوج", storm: "عواصف رعدية", normal: "طقس عادي" },
         "pt-br": { clear: "Céu Limpo", cloudy: "Nublado", foggy: "Nebuloso", rain: "Chuva Leve", snow: "Neve", storm: "Tempestade", normal: "Clima Normal" },
         es: { clear: "Cielo Despejado", cloudy: "Nublado", foggy: "Neblina", rain: "Lluvia Ligera", snow: "Nevando", storm: "Tormentas", normal: "Clima Normal" },
         pt: { clear: "Céu Limpo", cloudy: "Nublado", foggy: "Nevoeiro", rain: "Chuva Leve", snow: "Neve", storm: "Tempestade", normal: "Clima Normal" },
