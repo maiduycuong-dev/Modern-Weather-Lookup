@@ -13,18 +13,18 @@ Allows users to search for cities and displays current weather information in a 
 - Humidity and wind speed
 - Weather history view
 - Temperature unit toggle
-- Language toggle
+- Language switching
 - Default interface toggle
-- Window size toggle
+- Window resizing
 
 3. Repository Structure:
-- index.html: Application structure and User Interface (UI) layout.
-- style.css: UI styling, animations, gradients, card-based layout, settings panel, high customizability, a comfortable interface, and responsive design.
-- script.js: Core interaction logic, API calls, options for interface/fonts/measurement units, local time display functionality, etc.
-- favicon.png: Website icon (Source: Icons8.com)
-- settting.png: Setting Icon Source: Icons8.com)
-- LICENSE: MIT License for the project.
+- index.html: Application structure and User Interface (UI) layout
+- style.css: UI styling, animations, gradients, card-based layout, settings panel, high customizability, visually appealing interface, responsive design,...
+- script.js: Core interaction logic, API calls, options for interface/fonts/units/sizing, local time display function,...
+- favicon.png: Website icon (Favicon) (Source: Icons8.com)
+- settting.png: Settings icon (Source: Icons8.com)
+- LICENSE: Project license (MIT License)
 
 4. Project Conclusion:
 
-This is a medium-scale project designed to be easily extensible, functioning like an "Advanced Framework." If you wish to customize the application, feel free to "Fork" this project, as it is open-source under the MIT License. Thank you for reading this "README.md" file; wishing you good health and good luck!
+This is a medium-scale project designed for easy extensibility; it functions like an "advanced framework" while remaining simple. If you wish to customize the application, feel free to "Fork" this project, as it is open-source under the MIT License. Thank you for reading this "README.md" file; wishing you good health, happiness, and good luck!
